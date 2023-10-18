@@ -84,7 +84,27 @@ try
     }
 }
 
+await AddAdmin();
 
+//PER CREARE ROULO ADMIN:
+/*
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    string email = "admin@admin.com";
+    string password = "Pa$$w0rd";
+
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new IdentityUser();
+        user.UserName = email;
+        user.Email = email;
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Agricoltore");
+}
+*/
 
 app.MapControllerRoute(
     name: "default",
@@ -92,3 +112,30 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+
+async Task AddAdmin()
+{
+    // I servizi IUserStore e UserManager richiedono uno scope.
+    var services = app!.Services!.CreateScope().ServiceProvider;
+
+    var configuration = new User();
+    app.Configuration.Bind("Admin", configuration);
+
+    var usersManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    var user = new IdentityUser() { UserName = configuration.UserName!, Email = configuration.UserName!};
+    if ((await usersManager.CreateAsync(user, configuration.Password!)).Succeeded)
+    {
+        await usersManager.AddToRoleAsync(user, "Admin");
+        await usersManager.AddClaimAsync(user, new("Ruolo", "Admin"));
+    }
+}
+
+
+record User
+{
+    public string? UserName { get; set; }
+
+    public string? Password { get; set; }
+}

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\App_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {}
+    "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\App_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {
+    "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\App_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
         "projectName": "App_Progetto",
-        "projectPath": "C:\\Users\\user\\Desktop\\App_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\App_Progetto\\App_Progetto\\App_Progetto\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
