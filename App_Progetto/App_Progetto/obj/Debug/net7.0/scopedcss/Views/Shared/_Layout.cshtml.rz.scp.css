@@ -40,9 +40,25 @@ button.accept-policy[b-fello2w5jl] {
 }
 
 .footer[b-fello2w5jl] {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    color: #fff;
+    background-color: #fff;
+}
+
+.body[b-fello2w5jl] {
+    background-color: rgb(222, 235, 252);
+   
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.title[b-fello2w5jl] {
+    color: rebeccapurple;
+    position: absolute;
+    top: 20%;
+    left: 10%;
 }

@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -120,6 +121,19 @@ namespace App_Progetto.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    Console.WriteLine("\nBELLLOOOOOOO");
+                    //var roleRES = await _userManager.AddToRoleAsync(user, "Collaboratore");
+                    try
+                    {
+                        Console.WriteLine("\n\n**********FATTO");
+                        await _userManager.AddToRoleAsync(user, "Collaboratore");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"\n\nErrore durante l'assegnazione del ruolo: {ex.Message}");
+                        // Puoi anche registrare l'errore nei log o trattarlo diversamente
+                    }
+                
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
@@ -136,6 +150,8 @@ namespace App_Progetto.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
+                        
+                       
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
@@ -167,6 +183,8 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
+
+
 
         private IUserEmailStore<IdentityUser> GetEmailStore()
         {

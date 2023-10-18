@@ -40,9 +40,25 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    color: #fff;
+    background-color: #fff;
+}
+
+.body {
+    background-color: rgb(222, 235, 252);
+   
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.title {
+    color: rebeccapurple;
+    position: absolute;
+    top: 20%;
+    left: 10%;
 }
