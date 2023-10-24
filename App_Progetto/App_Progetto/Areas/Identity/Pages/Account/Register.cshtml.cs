@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.Extensions.Logging;
 
 namespace App_Progetto.Areas.Identity.Pages.Account
@@ -123,7 +125,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                 {
                     Console.WriteLine("\n\nHOLAAa");
                     //var roleRES = await _userManager.AddToRoleAsync(user, "Collaboratore");
-                    try
+                    /*try
                     {
                         Console.WriteLine("\n\n**********FATTO");
                         await _userManager.AddToRoleAsync(user, "Collaboratore");
@@ -132,8 +134,13 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     {
                         Console.WriteLine($"\n\nErrore durante l'assegnazione del ruolo: {ex.Message}");
                         // Puoi anche registrare l'errore nei log o trattarlo diversamente
-                    }
-                
+                    }*/
+                    await _userManager.AddToRoleAsync(user, "Collaboratore");
+                    //return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Assegnazione utente" });
+                    //return StatusCode(StatusCodes.Status200OK, new { Status = "Success", Message = "Assegnazione utente" });
+
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

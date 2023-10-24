@@ -54,7 +54,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+/*
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -83,28 +83,10 @@ try
         // Puoi gestire ulteriormente l'eccezione qui, se necessario
     }
 }
-
+*/
 await AddAdmin();
 
 //PER CREARE ROULO ADMIN:
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-    string email = "admin@admin.com";
-    string password = "Pa$$w0rd";
-
-    if (await userManager.FindByEmailAsync(email) == null)
-    {
-        var user = new IdentityUser();
-        user.UserName = email;
-        user.Email = email;
-
-        await userManager.CreateAsync(user, password);
-        await userManager.AddToRoleAsync(user, "Agricoltore");
-}
-*/
 
 app.MapControllerRoute(
     name: "default",
