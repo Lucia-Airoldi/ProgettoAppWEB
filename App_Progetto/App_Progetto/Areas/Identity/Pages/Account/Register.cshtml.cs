@@ -121,7 +121,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    Console.WriteLine("\n\nHOLAaa");
+                    Console.WriteLine("\n\nHOLAAa");
                     //var roleRES = await _userManager.AddToRoleAsync(user, "Collaboratore");
                     try
                     {
