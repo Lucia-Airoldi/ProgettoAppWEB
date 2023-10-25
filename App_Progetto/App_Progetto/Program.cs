@@ -30,6 +30,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
 });
 
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -86,7 +87,7 @@ try
 */
 await AddAdmin();
 
-//PER CREARE ROULO ADMIN:
+
 
 app.MapControllerRoute(
     name: "default",
@@ -95,7 +96,7 @@ app.MapRazorPages();
 
 app.Run();
 
-
+//PER CREARE ROULO ADMIN:
 async Task AddAdmin()
 {
     // I servizi IUserStore e UserManager richiedono uno scope.

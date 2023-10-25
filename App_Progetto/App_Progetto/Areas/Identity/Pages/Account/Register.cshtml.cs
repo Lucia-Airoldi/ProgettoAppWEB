@@ -73,6 +73,15 @@ namespace App_Progetto.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [StringLength(100, ErrorMessage = "Massimo 100 caratteri")]
+            [Display(Name = "Nome")]
+            public string Nome { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "Massimo 100 caratteri")]
+            [Display(Name = "Cognome")]
+            public string Cognome { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -117,6 +126,8 @@ namespace App_Progetto.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                //user.Nome = Input.Nome;
+                //user.Cognome = Input.Cognome;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -124,24 +135,10 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     Console.WriteLine("\n\nHOLAAa");
-                    //var roleRES = await _userManager.AddToRoleAsync(user, "Collaboratore");
-                    /*try
-                    {
-                        Console.WriteLine("\n\n**********FATTO");
-                        await _userManager.AddToRoleAsync(user, "Collaboratore");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"\n\nErrore durante l'assegnazione del ruolo: {ex.Message}");
-                        // Puoi anche registrare l'errore nei log o trattarlo diversamente
-                    }*/
-                    await _userManager.AddToRoleAsync(user, "Collaboratore");
-                    //return StatusCode(StatusCodes.Status200OK, new Response { Status = "Success", Message = "Assegnazione utente" });
-                    //return StatusCode(StatusCodes.Status200OK, new { Status = "Success", Message = "Assegnazione utente" });
-
-
 
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, "Collaboratore");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -157,8 +154,6 @@ namespace App_Progetto.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        
-                       
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
@@ -167,9 +162,12 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 
