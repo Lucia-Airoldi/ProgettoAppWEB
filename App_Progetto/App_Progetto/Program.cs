@@ -95,7 +95,7 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
-
+/*
 //PER CREARE ROULO ADMIN:
 async Task AddAdmin()
 {
@@ -112,6 +112,33 @@ async Task AddAdmin()
     {
         await usersManager.AddToRoleAsync(user, "Admin");
         await usersManager.AddClaimAsync(user, new("Ruolo", "Admin"));
+    }
+}*/
+
+
+async Task AddAdmin()
+{
+    // I servizi IUserStore e UserManager richiedono uno scope.
+    var services = app!.Services!.CreateScope().ServiceProvider;
+
+    var configuration = new User();
+    app.Configuration.Bind("Admin", configuration);
+
+    if (!string.IsNullOrEmpty(configuration.UserName)) // Verifica se UserName è diverso da null o vuoto
+    {
+        var usersManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+        var user = new IdentityUser() { UserName = configuration.UserName, Email = configuration.UserName };
+        if ((await usersManager.CreateAsync(user, configuration.Password)).Succeeded)
+        {
+            await usersManager.AddToRoleAsync(user, "Admin");
+            await usersManager.AddClaimAsync(user, new("Ruolo", "Admin"));
+        }
+    }
+    else
+    {
+        // Gestisci il caso in cui configuration.UserName sia nullo o vuoto
+        Console.WriteLine("Nome utente non valido nella configurazione 'Admin'.");
     }
 }
 
