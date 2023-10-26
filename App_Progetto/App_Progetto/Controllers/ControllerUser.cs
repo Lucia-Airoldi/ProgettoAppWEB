@@ -25,7 +25,7 @@ public class ControllerUser : Controller
         var users = await _userManager.Users.ToListAsync();
 
         List<UserRole> result = new();
-        foreach (var user in users)
+        foreach (var user in users) 
         {
             result.Add(new()
             {
