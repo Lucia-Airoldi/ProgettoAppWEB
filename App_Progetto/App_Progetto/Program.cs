@@ -1,4 +1,5 @@
-using App_Progetto.Data;
+Ôªøusing App_Progetto.Data;
+using App_Progetto.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,18 +12,24 @@ using static System.Formats.Asn1.AsnWriter;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+// Per Entity Framework
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Per Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+    //.AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddHttpContextAccessor();
+//builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
+
+// Per Authentication esterno
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     var configuration = builder.Configuration;
@@ -30,14 +37,24 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
 });
 
+//builder.Services.AddHttpContextAccessor();
+//builder.Services.AddSession();
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
     app.UseMigrationsEndPoint();
 }
 else
@@ -54,6 +71,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+//app.MapRazorPages();
 
 /*
 using (var scope = app.Services.CreateScope())
@@ -73,7 +91,7 @@ try
             }
             else
             {
-                Console.WriteLine($"Il ruolo '{role}' esiste gi‡.");
+                Console.WriteLine($"Il ruolo '{role}' esiste gi√†.");
             }
         }
     }
@@ -88,33 +106,16 @@ try
 await AddAdmin();
 
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+
 app.Run();
-/*
+
+
 //PER CREARE ROULO ADMIN:
-async Task AddAdmin()
-{
-    // I servizi IUserStore e UserManager richiedono uno scope.
-    var services = app!.Services!.CreateScope().ServiceProvider;
-
-    var configuration = new User();
-    app.Configuration.Bind("Admin", configuration);
-
-    var usersManager = services.GetRequiredService<UserManager<IdentityUser>>();
-
-    var user = new IdentityUser() { UserName = configuration.UserName!, Email = configuration.UserName!};
-    if ((await usersManager.CreateAsync(user, configuration.Password!)).Succeeded)
-    {
-        await usersManager.AddToRoleAsync(user, "Admin");
-        await usersManager.AddClaimAsync(user, new("Ruolo", "Admin"));
-    }
-}*/
-
 
 async Task AddAdmin()
 {
@@ -124,7 +125,7 @@ async Task AddAdmin()
     var configuration = new User();
     app.Configuration.Bind("Admin", configuration);
 
-    if (!string.IsNullOrEmpty(configuration.UserName)) // Verifica se UserName Ë diverso da null o vuoto
+    if (!string.IsNullOrEmpty(configuration.UserName)) // Verifica se UserName √® diverso da null o vuoto
     {
         var usersManager = services.GetRequiredService<UserManager<IdentityUser>>();
 

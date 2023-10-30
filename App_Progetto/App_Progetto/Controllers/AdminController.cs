@@ -6,34 +6,55 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
+using System.Diagnostics.Metrics;
 
 namespace App_Progetto.Controllers;
 
-public class ControllerUser : Controller
+
+//[ApiController]
+public class AdminController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    public ControllerUser(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    public AdminController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _roleManager = roleManager;
     }
 
-    public async Task<IActionResult> Index()
+    
+    public async Task<IActionResult> ViewRole()
     {
+        var currentUser = await _userManager.GetUserAsync(User);
         var users = await _userManager.Users.ToListAsync();
 
-        List<UserRole> result = new();
+        /*
+         * var usersWithRoles = _userManager.Users
+            .Select(user => new
+            {
+                UserId = user.Id,
+                Username = user.UserName,
+                Roles = _userManager.GetRolesAsync(user).Result
+            })
+            .ToList();
+         */
+
+        List<UserRole> result = new ();
+        int idCounter = 1;
         foreach (var user in users) 
         {
-            result.Add(new()
+            if (user.Id != currentUser.Id)
             {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                Roles = await _userManager.GetRolesAsync(user)
-            });
+                result.Add(new UserRole()
+                {
+                    Id = idCounter++,
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Roles = await _userManager.GetRolesAsync(user)
+                }); ;
+            }
         }
 
         return View(result);

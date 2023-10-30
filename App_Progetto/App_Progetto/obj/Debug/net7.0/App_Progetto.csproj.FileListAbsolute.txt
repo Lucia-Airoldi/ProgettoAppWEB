@@ -874,3 +874,7 @@ C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\App_Prog
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.pdb
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.genruntimeconfig.cache
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\App_Progetto\App_Progetto\obj\Debug\net7.0\ref\App_Progetto.dll
+C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll

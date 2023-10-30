@@ -168,6 +168,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
+                    //return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User già esistente!" }); 
                 }
             }
 
