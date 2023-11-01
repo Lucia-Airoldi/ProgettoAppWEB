@@ -53,7 +53,7 @@ public class AdminController : Controller
                     UserName = user.UserName,
                     Email = user.Email,
                     Roles = await _userManager.GetRolesAsync(user)
-                }); ;
+                });
             }
         }
 
@@ -105,7 +105,7 @@ public class AdminController : Controller
                 await _userManager.AddToRoleAsync(user, role.RoleName);
         }
 
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(ViewRole));
     }
 
 }

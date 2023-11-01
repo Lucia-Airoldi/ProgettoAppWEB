@@ -15,7 +15,171 @@ namespace App_Progetto.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
+
+            modelBuilder.Entity("App_Progetto.Models.Attuatore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Attivazione")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Standby")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TerrenoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoAttuatore")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TerrenoId");
+
+                    b.ToTable("Attuatore", (string)null);
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Gestione", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ruolo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TerrenoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TerrenoId");
+
+                    b.ToTable("Gestione", (string)null);
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Misurazione", b =>
+                {
+                    b.Property<DateTime>("DataOra")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CodiceSensore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoMisurazione")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Valore")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("DataOra", "CodiceSensore");
+
+                    b.HasIndex("CodiceSensore");
+
+                    b.ToTable("Misurazione", (string)null);
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Piano", b =>
+                {
+                    b.Property<int>("CodicePiano")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CodAtt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CondAttivazione")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CondDisattivazione")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("OrarioAttDefault")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("OrarioAttivazione")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("OrarioDisattDefault")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeOnly>("OrarioDisattivazione")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CodicePiano");
+
+                    b.HasIndex("CodAtt")
+                        .IsUnique();
+
+                    b.ToTable("Piano", (string)null);
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Sensore", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("StatoSensore")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TerrenoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoSensore")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TerrenoId");
+
+                    b.ToTable("Sensore", (string)null);
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Terreno", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CittaTerreno")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Ettari")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Foglio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mappale")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoColtura")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoTerreno")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Terreno", (string)null);
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -41,29 +205,6 @@ namespace App_Progetto.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "8b1d8dc0-fceb-424e-80f9-0d5670e90683",
-                            ConcurrencyStamp = "1",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "f3e9e1ab-f371-4061-a5af-a32267aad675",
-                            ConcurrencyStamp = "2",
-                            Name = "Agricoltore",
-                            NormalizedName = "AGRICOLTORE"
-                        },
-                        new
-                        {
-                            Id = "8a4e0c1c-f212-4df7-8e8b-4a5de3b2c304",
-                            ConcurrencyStamp = "3",
-                            Name = "Collaboratore",
-                            NormalizedName = "COLLABORATORE"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -236,6 +377,61 @@ namespace App_Progetto.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("App_Progetto.Models.Attuatore", b =>
+                {
+                    b.HasOne("App_Progetto.Models.Terreno", "Terreno")
+                        .WithMany("Attuatores")
+                        .HasForeignKey("TerrenoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Terreno");
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Gestione", b =>
+                {
+                    b.HasOne("App_Progetto.Models.Terreno", "Terreno")
+                        .WithMany("Gestiones")
+                        .HasForeignKey("TerrenoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Terreno");
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Misurazione", b =>
+                {
+                    b.HasOne("App_Progetto.Models.Sensore", "Sensores")
+                        .WithMany("Misuraziones")
+                        .HasForeignKey("CodiceSensore")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sensores");
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Piano", b =>
+                {
+                    b.HasOne("App_Progetto.Models.Attuatore", "Attuatores")
+                        .WithOne("Pianos")
+                        .HasForeignKey("App_Progetto.Models.Piano", "CodAtt")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attuatores");
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Sensore", b =>
+                {
+                    b.HasOne("App_Progetto.Models.Terreno", "Terreno")
+                        .WithMany("Sensores")
+                        .HasForeignKey("TerrenoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Terreno");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -285,6 +481,26 @@ namespace App_Progetto.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Attuatore", b =>
+                {
+                    b.Navigation("Pianos")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Sensore", b =>
+                {
+                    b.Navigation("Misuraziones");
+                });
+
+            modelBuilder.Entity("App_Progetto.Models.Terreno", b =>
+                {
+                    b.Navigation("Attuatores");
+
+                    b.Navigation("Gestiones");
+
+                    b.Navigation("Sensores");
                 });
 #pragma warning restore 612, 618
         }

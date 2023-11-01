@@ -878,3 +878,4 @@ C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.
 C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\bin\Debug\net7.0\DatiDb\Terrone.json

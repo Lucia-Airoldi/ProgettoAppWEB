@@ -1,4 +1,5 @@
 ﻿using App_Progetto.Data;
+using App_Progetto.DatiDb;
 using App_Progetto.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -73,7 +74,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 //app.MapRazorPages();
 
-/*
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -102,8 +103,9 @@ try
         // Puoi gestire ulteriormente l'eccezione qui, se necessario
     }
 }
-*/
+
 await AddAdmin();
+//await SetData();
 
 
 app.MapControllerRoute(
@@ -144,6 +146,22 @@ async Task AddAdmin()
 }
 
 
+
+/*
+async Task SetData()
+{
+    var terrenoDataList = JsonFileReader.DeserializeJsonFile<List<Terreno>>("C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\DatiDb\\Terrone.json");
+
+    InsertDataIntoTerrenoTable(terrenoDataList);
+    var path = args.Length == 0
+    ? @"C:\Users\user\Desktop\App_Web_progetto\App_Progetto\App_Progetto\DatiDb\Terrone.json.txt"
+    : args[0];
+
+    var stream = File.OpenRead(path);
+    //quando uso gli stream è meglio usare ilmetodo async per risparmiare memoria ("traduco" direttamente dalfile, senza salvarlo in memoria)
+    var users = await JsonSerializer.DeserializeAsync<UserImport[]>(stream);
+}
+*/
 record User
 {
     public string? UserName { get; set; }
