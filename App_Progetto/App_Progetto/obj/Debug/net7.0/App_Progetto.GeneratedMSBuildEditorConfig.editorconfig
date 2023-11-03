@@ -164,10 +164,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/user/Desktop/App_Web_progetto/App_Progetto/App_Progetto/Areas/Identity/Pages/viewRole.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcdmlld1JvbGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/user/Desktop/App_Web_progetto/App_Progetto/App_Progetto/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -206,6 +202,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/user/Desktop/App_Web_progetto/App_Progetto/App_Progetto/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/App_Web_progetto/App_Progetto/App_Progetto/Views/User/HomeTerreno.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxIb21lVGVycmVuby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/Desktop/App_Web_progetto/App_Progetto/App_Progetto/Views/_ViewImports.cshtml]

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace App_Progetto.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,15 @@ namespace App_Progetto.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -106,7 +111,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
+            
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -114,8 +119,25 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+
+                    // Verifica i ruoli dell'utente
+                    if (await _userManager.IsInRoleAsync(user, "Agricoltore") || await _userManager.IsInRoleAsync(user, "Collaboratore"))
+                    {
+                        //if ((await _userManager.GetUsersInRoleAsync(currentUser)) == "Agricoltore")
+
+                        _logger.LogInformation("***HOLA.");
+                        // Se l'utente ha un returnUrl, reindirizza lì, altrimenti vai alla HomeUser
+                        return Redirect("~/User/HomeTerreno");
+
+                        //return !string.IsNullOrEmpty(returnUrl) ? Redirect(returnUrl) : RedirectToAction("./User/HomeTerreno", "Home");
+                    }
+                    else
+                    {
+                        _logger.LogInformation("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                        return LocalRedirect(returnUrl);
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -131,10 +153,9 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return Page();
+            }   
+                // If we got this far, something failed, redisplay form
+                return Page();
         }
     }
 }

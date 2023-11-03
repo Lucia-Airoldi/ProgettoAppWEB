@@ -21,10 +21,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Per Identity
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-    //.AddDefaultTokenProviders();
+//.AddDefaultUI()
+//.AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 
 //builder.Services.AddHttpContextAccessor();
@@ -36,6 +37,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     var configuration = builder.Configuration;
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
+    //googleOptions.CallbackPath = "/User/HomeTerreno"; // Questa è l'URL di callback
 });
 
 //builder.Services.AddHttpContextAccessor();
@@ -53,9 +55,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
     app.UseMigrationsEndPoint();
 }
 else

@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "HomeTerreno";
+}
+@if (User.IsInRole("Agricoltore"))
+{
+    <h2>Visualizza Miei Terreni</h2>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr class="bg-primary text-white">
+                <th>Foglio</th>
+                <th>Mappale</th>
+                <th>Ettari</th>
+                <th>Città</th>
+                <th>Coltura</th>
+                <th>Tipo Terreno</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var terr in Model)
+            {
+                @if ("Agricoltore" == terr.Ruolo)
+                {
+                    <tr>
+                        <td>@terr.Foglio</td>
+                        <td>@terr.Mappale</td>
+                        <td>@terr.Ettari</td>
+                        <td>@terr.Citta</td>
+                        <td>@terr.TipoColtura</td>
+                        <td>@terr.TipoTerreno</td>
+
+                    </tr>
+                }
+
+            }
+        </tbody>
+        </table>
+} 
+@if (User.IsInRole("Collaboratore"))
+{
+        <h2>Visualizza Terreni Gestisco</h2>
+
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr class="bg-primary text-white">
+                    <th>Foglio</th>
+                    <th>Mappale</th>
+                    <th>Ettari</th>
+                    <th>Città</th>
+                    <th>Coltura</th>
+                    <th>Tipo Terreno</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var terr in Model)
+            {@if ("Collaboratore" == terr.Ruolo)
+                {
+                    <tr>
+                        <td>@terr.Foglio</td>
+                        <td>@terr.Mappale</td>
+                        <td>@terr.Ettari</td>
+                        <td>@terr.Citta</td>
+                        <td>@terr.TipoColtura</td>
+                        <td>@terr.TipoTerreno</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    }
+
