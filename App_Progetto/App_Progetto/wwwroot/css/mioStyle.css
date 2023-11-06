@@ -1,0 +1,55 @@
+﻿#main-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#content-container {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+#info-container {
+    padding-left: 10px;
+    flex: 7; /* Aggiunto flex: 1; per farlo espandersi e occupare lo spazio rimanente */
+}
+
+#delete-button-container {
+    display: flex;
+    justify-content: flex-end; /* Posiziona il contenuto alla fine dell'asse principale (a destra) */
+    align-items: center; /* Centra verticalmente il contenuto */
+}
+
+#delete-button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 13px 30px; /* Adattato padding per dimensioni basate sul testo */
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#buttons-container {
+    display: flex;
+    gap: 33px; /* Aggiunto gap per lo spazio tra i pulsanti */
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.action-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 13px 30px; /* Adattato padding per dimensioni basate sul testo */
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

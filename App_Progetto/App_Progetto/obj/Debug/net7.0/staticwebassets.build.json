@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oW6KF2/gOxvbQu+ZYAWixPVq253e1pA18T7yX2RU20U=",
+  "Hash": "FR3N6q7nP6qS/kmJZyQhbI0dDUI+4GVJ4AIMS6qcCQo=",
   "Source": "App_Progetto",
   "BasePath": "_content/App_Progetto",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\App_Progetto.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\wwwroot\\css\\mioStyle.css",
+      "SourceId": "App_Progetto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\wwwroot\\",
+      "BasePath": "_content/App_Progetto",
+      "RelativePath": "css/mioStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\mioStyle.css"
     },
     {
       "Identity": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\wwwroot\\css\\site.css",

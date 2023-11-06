@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\App_Progetto.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\wwwroot\\css\\mioStyle.css",
+      "PackagePath": "staticwebassets\\css\\mioStyle.css"
+    },
+    {
       "Id": "C:\\Users\\user\\Desktop\\App_Web_progetto\\App_Progetto\\App_Progetto\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -9,19 +9,6 @@
             <h2>@Model.UserName</h2>
             Add/Remove Roles
         </div>
-        <!--<div class="card-body">
-            <input type="hidden" asp-for="UserId" />
-
-            @for (int i = 0; i < Model.Roles.Count; i++)
-            {
-                <div class="form-check m-1">
-                    <input type="radio" asp-for="@Model.Roles[i].IsSelected" value="true" class="form-check-input" name="roleGroup" />
-                    <label class="form-check-label" asp-for="@Model.Roles[i].IsSelected">
-                        @Model.Roles[i].RoleName
-                    </label>
-                </div>
-            }
-        </div>-->
 
         <div class="card-body">
             <input type="hidden" asp-for="UserId" />
