@@ -4,7 +4,7 @@
     justify-items: center;
 }
 
-.row {
+.row-table {
     width: 100%;
     display: flex;
     align-items: center;
@@ -18,23 +18,13 @@
 
 #info-container {
     padding-left: 10px;
-    flex: 7; /* Aggiunto flex: 1; per farlo espandersi e occupare lo spazio rimanente */
+    flex: 4 0 0%; /* Aggiunto flex: 1; per farlo espandersi e occupare lo spazio rimanente */
 }
 
 #delete-button-container {
-    display: flex;
+    padding-right: 10px;
     justify-content: flex-end; /* Posiziona il contenuto alla fine dell'asse principale (a destra) */
     align-items: center; /* Centra verticalmente il contenuto */
-}
-
-#delete-button {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 13px 30px; /* Adattato padding per dimensioni basate sul testo */
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 #buttons-container {
@@ -51,5 +41,7 @@
     font-size: 20px;
     border: none;
     border-radius: 5px;
+    text-align: center;
     cursor: pointer;
+    margin-bottom: 10px;
 }

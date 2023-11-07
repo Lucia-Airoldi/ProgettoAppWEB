@@ -56,6 +56,7 @@
                     <th>Città</th>
                     <th>Coltura</th>
                     <th>Tipo Terreno</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -70,6 +71,10 @@
                         <td>@terr.Citta</td>
                         <td>@terr.TipoColtura</td>
                         <td>@terr.TipoTerreno</td>
+                        <td>
+                            <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="User"
+                            asp-action="VisualizzaTerreno" asp-route-TerrenoId="@terr.TerrenoId">Visualizza</a>
+                        </td>
                     </tr>
                 }
             }

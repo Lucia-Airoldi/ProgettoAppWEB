@@ -50,6 +50,7 @@ public class UserController : Controller
 
     public async Task<IActionResult> VisualizzaTerreno(int TerrenoId)
     {
+        var currentUser = await _userManager.GetUserAsync(User);
         var terr = _dbContext.Terrenos.FirstOrDefault(t => t.Id == TerrenoId);
         List<String> NameCollab = new List<string>();
 
@@ -59,19 +60,19 @@ public class UserController : Controller
         var Collaboratori = _dbContext.Gestiones
             .Where(g => g.TerrenoId == TerrenoId && g.Ruolo == "Collaboratore")
             .ToList();
-        foreach (var collaboratore in Collaboratori)
-        {
-            Console.WriteLine($"Collaboratore: UserId={collaboratore.UserId}, Ruolo={collaboratore.Ruolo}");
-        }
 
         foreach (var collab in Collaboratori)
         {
-
             var user = await _userManager.FindByIdAsync(collab.UserId);
             NameCollab.Add(user.UserName);
         }
-        Console.WriteLine("ifuiru " + string.Join(", ", NameCollab));
-        _logger.LogInformation($"HOLAAAAAAAAAAA - NomeCollab: {string.Join(", ", NameCollab)}");
+        //Console.WriteLine("ifuiru " + string.Join(", ", NameCollab));
+
+        var gestione = _dbContext.Gestiones
+            .FirstOrDefault(g => g.TerrenoId == terr.Id && g.UserId == currentUser.Id);
+
+        string ruolo = gestione?.Ruolo ?? "Nessun ruolo associato";
+        Console.WriteLine("********* " + ruolo);
 
         var viewModel = new
         {
@@ -82,7 +83,8 @@ public class UserController : Controller
             Citta = terr.CittaTerreno,
             TipoColtura = terr.TipoColtura,
             TipoTerreno = terr.TipoTerreno,
-            Collaboratore = NameCollab
+            Collaboratore = NameCollab,
+            Ruolo = ruolo
         };
 
         return View(viewModel);

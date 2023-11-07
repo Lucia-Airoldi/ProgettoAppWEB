@@ -22,7 +22,7 @@
 <h1>Pagina del Terreno</h1>
 
 <div id="main-container">
-    <div class="row" id="content-container">
+    <div class="row row-table" id="content-container">
         <div class="col" id="info-container">
             <table class="table table-striped" id="tableTerr">
                 <tbody>
@@ -57,15 +57,31 @@
                 </tbody>
             </table>
         </div>
+
         <!-- Bottone Elimina -->
-        <div class="col" id="delete-button-container">
-            <button id="delete-button">Elimina</button>
+        <div class="col">
+            <div id="delete-button-container">
+                @if (Model.Ruolo == "Agricoltore") {
+                <div class="row row-table">
+                    <button class="action-button" id="delete-button" style="background-color: #4CAF50; margin-bottom: 10px;">Elimina</button>
+                </div>
+                }
+                <div class="row row-table">
+                    <button class="action-button" id="aggiungi-attuatore" style="background-color: orange;">Aggiungi Attuatore</button>
+                </div>
+                <div class="row row-table">
+                    <button class="action-button" id="aggiungi-sensore" style="background-color: orange;">Aggiungi Sensore</button>
+                </div>
+               
+            </div>
         </div>
     </div>
 
     <div id="buttons-container">
         <!-- Bottoni Attuatori e Sensori -->
-        <button class="action-button">Attuatori</button>
+        <a class="btn action-button" asp-controller="Attuatores" asp-action="Index" asp-route-TerrenoId="@Model.TerrenoId">Attuatori</a>
+
+
         <button class="action-button">Sensori</button>
     </div>
 </div>
