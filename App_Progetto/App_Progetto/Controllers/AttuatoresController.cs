@@ -25,7 +25,6 @@ namespace App_Progetto.Controllers
 
         public async Task<IActionResult> AttDettaglio(int TerrenoId)
         {
-            Console.WriteLine("****ciaooo***** " + TerrenoId);
             var query = from a in _context.Attuatores
                         join t in _context.Terrenos on a.TerrenoId equals t.Id
                         where a.TerrenoId == TerrenoId

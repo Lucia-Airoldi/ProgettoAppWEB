@@ -7,17 +7,46 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App_Progetto.Data;
 using App_Progetto.Models;
+using Humanizer;
 
 namespace App_Progetto.Controllers
 {
     public class SensoresController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<UserController> _logger;
 
-        public SensoresController(ApplicationDbContext context)
+        public SensoresController(ApplicationDbContext context, ILogger<UserController> logger)
         {
             _context = context;
+            _logger = logger;
         }
+
+        //Creo il task per la visualizzazione dei sensori
+        public async Task<IActionResult> SensoriDettaglio(int TerrenoId)
+        {
+            var query = from a in _context.Sensores
+                        join t in _context.Terrenos on a.TerrenoId equals t.Id
+                        where a.TerrenoId == TerrenoId
+                        select new
+                        {
+                            TerrenoId = a.TerrenoId,
+                            Foglio = t.Foglio,
+                            Mappale = t.Mappale,
+                            IdSensore = a.Id,
+                            StatoSensore = a.StatoSensore,
+                            TipoSensore = a.TipoSensore
+                        };
+
+            var result = await query.ToListAsync();
+            foreach (var item in result)
+            {
+                Console.WriteLine($"TerrenoId: {item.TerrenoId}, Foglio: {item.Foglio}, Mappale: {item.Mappale}, SensoreId: {item.IdSensore}, Stato Sensore: {item.StatoSensore}, Tipo Sensore: {item.TipoSensore}");
+            }
+            return View(result);
+        }
+
+
 
         // GET: Sensores
         public async Task<IActionResult> Index()

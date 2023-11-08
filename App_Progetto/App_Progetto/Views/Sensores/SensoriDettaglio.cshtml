@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "SensoriDettaglio";
+}
+
+<h1>Dettaglio Sensori</h1>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr class="bg-success text-white">
+            <th>TerrenoId</th>
+            <th>Mappale</th>
+            <th>Foglio</th>
+            <th>IdSensore</th>
+            <th>StatoSensore</th>
+            <th>TipoSensore</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var terr in Model)
+        {
+            <tr>
+                <td>@terr.TerrenoId</td>
+                <td>@terr.Mappale</td>
+                <td>@terr.Foglio</td>
+                <td>@terr.IdSensore</td>
+                <td>@terr.StatoSensore</td>
+                <td>@terr.TipoSensore</td>
+            </tr>
+        }
+    </tbody>
+</table>

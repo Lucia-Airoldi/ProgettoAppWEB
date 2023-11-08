@@ -79,9 +79,8 @@
 
     <div id="buttons-container">
         <!-- Bottoni Attuatori e Sensori -->
-    <a class="btn action-button" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Attuatori</a>
+        <a class="btn action-button" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Attuatori</a>
 
-
-        <button class="action-button">Sensori</button>
+        <a class="btn action-button" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Sensori</a>
     </div>
 </div>

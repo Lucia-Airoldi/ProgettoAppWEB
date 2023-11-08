@@ -1,5 +1,6 @@
 ﻿using App_Progetto.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace App_Progetto.Controllers

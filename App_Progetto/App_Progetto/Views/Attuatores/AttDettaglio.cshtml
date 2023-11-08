@@ -3,42 +3,27 @@
     ViewData["Title"] = "AttDettaglio";
 }
 
-<h1>AttDettaglio</h1>
-
-@foreach (var item in Model) {
-        <p> @item.Mappale </p>
-    <p>
-        @item.Foglio
-    </p>
-}
-<p>CIOPIIOIIIPII</p>
+<h1>Dettaglio Attuarori</h1>
 
 <table class="table table-striped mt-4">
         <thead>
             <tr class="bg-success text-white">
                 <th>TerrenoId</th>
-                    <th>Mappale</th>
-                    <th>Foglio</th>
+                <th>Mappale</th>
+                <th>Foglio</th>
                 <th>TipoAttuatore</th>
                 <th>Standby</th>
                 <th>Attivazione</th>
             </tr>
         </thead>
 
-    TerrenoId = a.TerrenoId,
-    Foglio = t.Foglio,
-    Mappale = t.Mappale,
-    TipoAttuatore = a.TipoAttuatore,
-    Standby = a.Standby,
-    Attivazione = a.Attivazione
-
         <tbody>
             @foreach (var terr in Model)
             {
               <tr>
                 <td>@terr.TerrenoId</td>
-                  <td>@terr.Mappale</td>
-                        <td>@terr.Foglio</td>
+                <td>@terr.Mappale</td>
+                <td>@terr.Foglio</td>
                 <td>@terr.TipoAttuatore</td>
                 <td>@terr.Standby</td>
                 <td>@terr.Attivazione</td>
