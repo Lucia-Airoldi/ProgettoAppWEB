@@ -7,28 +7,48 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App_Progetto.Data;
 using App_Progetto.Models;
+using Humanizer;
 
 namespace App_Progetto.Controllers
 {
     public class AttuatoresController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<UserController> _logger;
 
-        public AttuatoresController(ApplicationDbContext context)
+
+        public AttuatoresController(ApplicationDbContext context, ILogger<UserController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<IActionResult> AttDettaglio(int idTerr)
+        public async Task<IActionResult> AttDettaglio(int TerrenoId)
         {
-            var applicationDbContext = _context.Attuatores
-            .Where(attuatore => attuatore.TerrenoId == idTerr);
+            Console.WriteLine("****ciaooo***** " + TerrenoId);
+            var query = from a in _context.Attuatores
+                        join t in _context.Terrenos on a.TerrenoId equals t.Id
+                        where a.TerrenoId == TerrenoId
+                        select new
+                        {
+                            TerrenoId = a.TerrenoId,
+                            Foglio = t.Foglio,
+                            Mappale = t.Mappale,
+                            TipoAttuatore = a.TipoAttuatore,
+                            Standby = a.Standby,
+                            Attivazione = a.Attivazione
+                        };
 
-            return View(await applicationDbContext.ToListAsync());
+            var result = await query.ToListAsync();
+            foreach (var item in result)
+            {
+                Console.WriteLine($"TerrenoId: {item.TerrenoId}, Foglio: {item.Foglio}, Mappale: {item.Mappale}, TipoAttuatore: {item.TipoAttuatore}, Standby: {item.Standby}, Attivazione: {item.Attivazione}");
+            }
+            return View(result);
         }
 
         // GET: Attuatores
-        public async Task<IActionResult> Index(int idTerr)
+        public async Task<IActionResult> Index(int? id)
         {
             var applicationDbContext = _context.Attuatores.Include(a => a.Terreno);
             return View(await applicationDbContext.ToListAsync());
