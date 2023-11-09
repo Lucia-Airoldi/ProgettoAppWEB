@@ -80,30 +80,13 @@ namespace App_Progetto.Controllers
         }
 
         // POST: Attuatores/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,TipoAttuatore,Standby,Attivazione,TerrenoId")] Attuatore attuatore)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Add(attuatore);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    // Stampa o registra l'errore per una migliore comprensione
-                    Console.WriteLine($"Errore durante il salvataggio: {ex.Message}");
-                    // Puoi anche restituire una vista di errore per visualizzare i dettagli dell'errore
-                    return View("Error");
-                }
-            }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", attuatore.TerrenoId);
-            return View(attuatore);
+            _context.Add(attuatore);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Attuatores/Edit/5
@@ -135,29 +118,10 @@ namespace App_Progetto.Controllers
             {
                 return NotFound();
             }
+            _context.Update(attuatore);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(attuatore);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AttuatoreExists(attuatore.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", attuatore.TerrenoId);
-            return View(attuatore);
         }
 
         // GET: Attuatores/Delete/5

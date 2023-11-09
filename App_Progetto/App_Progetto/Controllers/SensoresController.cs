@@ -88,14 +88,9 @@ namespace App_Progetto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,StatoSensore,TipoSensore,TerrenoId")] Sensore sensore)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(sensore);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", sensore.TerrenoId);
-            return View(sensore);
+            _context.Add(sensore);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Sensores/Edit/5
@@ -126,29 +121,10 @@ namespace App_Progetto.Controllers
             {
                 return NotFound();
             }
+            _context.Update(sensore);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(sensore);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SensoreExists(sensore.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", sensore.TerrenoId);
-            return View(sensore);
         }
 
         // GET: Sensores/Delete/5

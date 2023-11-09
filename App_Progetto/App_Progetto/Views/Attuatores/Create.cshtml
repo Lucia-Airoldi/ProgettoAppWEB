@@ -10,11 +10,15 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form method="post" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TipoAttuatore" class="control-label"></label>
-                <input asp-for="TipoAttuatore" class="form-control" />
+                <select asp-for="TipoAttuatore" class="form-control">
+                    <option value="Luce">Luce</option>
+                    <option value="Irrigazione">Irrigazione</option>
+                    <option value="Riscaldamento">Riscaldamento</option>
+                </select>
                 <span asp-validation-for="TipoAttuatore" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -37,8 +41,3 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Lista Attuatori</a>
-</div>
-
