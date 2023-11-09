@@ -88,9 +88,19 @@ namespace App_Progetto.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(attuatore);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(attuatore);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    // Stampa o registra l'errore per una migliore comprensione
+                    Console.WriteLine($"Errore durante il salvataggio: {ex.Message}");
+                    // Puoi anche restituire una vista di errore per visualizzare i dettagli dell'errore
+                    return View("Error");
+                }
             }
             ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", attuatore.TerrenoId);
             return View(attuatore);
@@ -116,6 +126,7 @@ namespace App_Progetto.Controllers
         // POST: Attuatores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Attuatores/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TipoAttuatore,Standby,Attivazione,TerrenoId")] Attuatore attuatore)

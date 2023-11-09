@@ -111,11 +111,9 @@ namespace App_Progetto.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
+
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -125,17 +123,12 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     // Verifica i ruoli dell'utente
                     if (await _userManager.IsInRoleAsync(user, "Agricoltore") || await _userManager.IsInRoleAsync(user, "Collaboratore"))
                     {
-                        //if ((await _userManager.GetUsersInRoleAsync(currentUser)) == "Agricoltore")
-
-                        _logger.LogInformation("***HOLA.");
-                        // Se l'utente ha un returnUrl, reindirizza lì, altrimenti vai alla HomeUser
+              
+                        // Se l'utente ha un returnUrl, reindirizza lì, altrimenti vai alla HomeTerreno
                         return Redirect("~/User/HomeTerreno");
-
-                        //return !string.IsNullOrEmpty(returnUrl) ? Redirect(returnUrl) : RedirectToAction("./User/HomeTerreno", "Home");
                     }
                     else
                     {
-                        _logger.LogInformation("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -155,7 +148,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                 }
             }   
                 // If we got this far, something failed, redisplay form
-                return Page();
+        return Page();
         }
     }
 }

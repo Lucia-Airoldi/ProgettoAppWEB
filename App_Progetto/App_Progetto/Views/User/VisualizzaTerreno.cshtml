@@ -67,10 +67,18 @@
                 </div>
                 }
                 <div class="row row-table">
-                    <button class="action-button" id="aggiungi-attuatore" style="background-color: orange;">Aggiungi Attuatore</button>
+                    <!--<button class="action-button" id="aggiungi-attuatore" style="background-color: orange;">Aggiungi Attuatore</button>-->
+                    <a class="btn action-button" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId">Aggiungi attuatore</a>
                 </div>
+                <div>
+                    <a asp-controller="Attuatores" asp-action="Index">Lista attuatori</a>
+                </div>
+
                 <div class="row row-table">
                     <button class="action-button" id="aggiungi-sensore" style="background-color: orange;">Aggiungi Sensore</button>
+                </div>
+                <div>
+                    <a asp-controller="Sensores" asp-action="Index">Lista sensoria></a>
                 </div>
                
             </div>
