@@ -1,0 +1,61 @@
+﻿@model App_Progetto.Models.Piano
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Piano</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CodicePiano" />
+            <div class="form-group">
+                <label asp-for="OrarioAttivazione" class="control-label"></label>
+                <input asp-for="OrarioAttivazione" class="form-control" />
+                <span asp-validation-for="OrarioAttivazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrarioDisattivazione" class="control-label"></label>
+                <input asp-for="OrarioDisattivazione" class="form-control" />
+                <span asp-validation-for="OrarioDisattivazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrarioAttDefault" class="control-label"></label>
+                <input asp-for="OrarioAttDefault" class="form-control" />
+                <span asp-validation-for="OrarioAttDefault" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrarioDisattDefault" class="control-label"></label>
+                <input asp-for="OrarioDisattDefault" class="form-control" />
+                <span asp-validation-for="OrarioDisattDefault" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CondAttivazione" class="control-label"></label>
+                <input asp-for="CondAttivazione" class="form-control" />
+                <span asp-validation-for="CondAttivazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CondDisattivazione" class="control-label"></label>
+                <input asp-for="CondDisattivazione" class="form-control" />
+                <span asp-validation-for="CondDisattivazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodAtt" class="control-label"></label>
+                <select asp-for="CodAtt" class="form-control" asp-items="ViewBag.CodAtt"></select>
+                <span asp-validation-for="CodAtt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

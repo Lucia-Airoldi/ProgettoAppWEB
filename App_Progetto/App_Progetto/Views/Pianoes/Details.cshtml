@@ -1,0 +1,60 @@
+﻿@model App_Progetto.Models.Piano
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Piano</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrarioAttivazione)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrarioAttivazione)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrarioDisattivazione)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrarioDisattivazione)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrarioAttDefault)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrarioAttDefault)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrarioDisattDefault)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrarioDisattDefault)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CondAttivazione)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CondAttivazione)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CondDisattivazione)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CondDisattivazione)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Attuatores)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Attuatores.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CodicePiano">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

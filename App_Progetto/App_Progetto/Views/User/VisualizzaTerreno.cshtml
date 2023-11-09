@@ -58,29 +58,20 @@
             </table>
         </div>
 
-        <!-- Bottone Elimina -->
         <div class="col">
             <div id="delete-button-container">
-                @if (Model.Ruolo == "Agricoltore") {
-                <div class="row row-table">
-                    <button class="action-button" id="delete-button" style="background-color: #4CAF50; margin-bottom: 10px;">Elimina</button>
-                </div>
+                @if (Model.Ruolo == "Agricoltore")
+                {
+                    <div class="row row-table">
+                        <button class="action-button" id="delete-button" style="background-color: #4CAF50; margin-bottom: 10px;">Elimina terreno</button>
+                    </div>
                 }
                 <div class="row row-table">
-                    <!--<button class="action-button" id="aggiungi-attuatore" style="background-color: orange;">Aggiungi Attuatore</button>-->
-                    <a class="btn action-button" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId">Aggiungi attuatore</a>
+                    <a class="btn action-button" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi attuatore</a>
                 </div>
-                <div>
-                    <a asp-controller="Attuatores" asp-action="Index">Lista attuatori</a>
-                </div>
-
                 <div class="row row-table">
-                    <button class="action-button" id="aggiungi-sensore" style="background-color: orange;">Aggiungi Sensore</button>
+                    <a class="btn action-button" asp-controller="Sensores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi sensore</a>
                 </div>
-                <div>
-                    <a asp-controller="Sensores" asp-action="Index">Lista sensori></a>
-                </div>
-               
             </div>
         </div>
     </div>

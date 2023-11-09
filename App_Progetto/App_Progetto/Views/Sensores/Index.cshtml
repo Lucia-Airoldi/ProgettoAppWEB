@@ -4,9 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a asp-action="Create">Create un nuovo sensore</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.TipoSensore)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Terreno.Id)
+                @Html.DisplayFor(modelItem => item.Terreno)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

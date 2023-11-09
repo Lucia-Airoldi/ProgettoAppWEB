@@ -12,6 +12,11 @@
     <div class="col-md-4">
         <form method="post" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <input asp-for="TerrenoId" type="hidden" />
+            </div>
+
             <div class="form-group">
                 <label asp-for="TipoAttuatore" class="control-label"></label>
                 <select asp-for="TipoAttuatore" class="form-control">
@@ -21,20 +26,19 @@
                 </select>
                 <span asp-validation-for="TipoAttuatore" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Standby" /> @Html.DisplayNameFor(model => model.Standby)
                 </label>
             </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Attivazione" /> @Html.DisplayNameFor(model => model.Attivazione)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="TerrenoId" class="control-label"></label>
-                <select asp-for="TerrenoId" class ="form-control" asp-items="ViewBag.TerrenoId"></select>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

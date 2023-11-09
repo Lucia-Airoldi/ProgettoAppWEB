@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using App_Progetto.Data;
 using App_Progetto.Models;
 using Humanizer;
+using System.Security.Claims;
 
 namespace App_Progetto.Controllers
 {
@@ -49,11 +50,37 @@ namespace App_Progetto.Controllers
 
 
         // GET: Sensores
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Sensores.Include(s => s.Terreno);
             return View(await applicationDbContext.ToListAsync());
+        }*/
+
+        public async Task<IActionResult> Index()
+        {
+            // Ottenere l'ID dell'utente corrente
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Trovare il ruolo dell'utente
+            var userRole = _context.Gestiones
+                .Where(g => g.UserId == userId)
+                .Select(g => g.Ruolo)
+                .FirstOrDefault();
+
+            // Ottenere i terreni associati all'utente
+            var terreniUtente = _context.Gestiones
+                .Where(g => g.UserId == userId)
+                .Select(g => g.TerrenoId)
+                .ToList();
+
+            // Ottenere gli attuatori associati ai terreni dell'utente
+            var attuatoriUtente = _context.Sensores
+                .Where(a => terreniUtente.Contains(a.TerrenoId))
+                .ToList();
+
+            return View(attuatoriUtente);
         }
+
 
         // GET: Sensores/Details/5
         public async Task<IActionResult> Details(int? id)

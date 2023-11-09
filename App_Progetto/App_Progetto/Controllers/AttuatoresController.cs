@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using App_Progetto.Data;
 using App_Progetto.Models;
 using Humanizer;
+using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace App_Progetto.Controllers
 {
@@ -47,10 +49,25 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Attuatores
-        public async Task<IActionResult> Index(int? id)
+        /*public async Task<IActionResult> Index(int? id)
         {
             var applicationDbContext = _context.Attuatores.Include(a => a.Terreno);
             return View(await applicationDbContext.ToListAsync());
+        }*/
+
+        public async Task<IActionResult> Index()
+        {
+            // Ottenere l'ID dell'utente corrente
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+
+            var attuatoriUtente = _context.Attuatores
+                .Include(a => a.Terreno)  // Includi il riferimento al Terreno
+                .Where(a => _context.Gestiones.Any(g => g.UserId == userId && g.TerrenoId == a.TerrenoId))
+                .ToList();
+
+            return View(attuatoriUtente);
         }
 
         // GET: Attuatores/Details/5
@@ -73,9 +90,11 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Attuatores/Create
-        public IActionResult Create()
+        public IActionResult Create(int TerrenoId)
         {
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id");
+            // Imposta il TerrenoId nella ViewBag (o ovunque tu preferisca passare dati alla vista)
+            ViewBag.TerrenoId = TerrenoId;
+
             return View();
         }
 
@@ -86,7 +105,8 @@ namespace App_Progetto.Controllers
         {
             _context.Add(attuatore);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            /*return RedirectToAction(nameof(Index));*/
+            return RedirectToAction("AttDettaglio", new { TerrenoId = attuatore.TerrenoId });
         }
 
         // GET: Attuatores/Edit/5

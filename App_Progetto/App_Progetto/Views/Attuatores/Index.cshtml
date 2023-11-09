@@ -4,9 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a asp-action="Create">Create un nuovo attuatore</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -20,7 +17,10 @@
                 @Html.DisplayNameFor(model => model.Attivazione)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Terreno)
+                @Html.DisplayNameFor(model => model.Terreno.Mappale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Terreno.Foglio)
             </th>
             <th></th>
         </tr>
@@ -38,11 +38,14 @@
                 @Html.DisplayFor(modelItem => item.Attivazione)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Terreno.Id)
+                @Html.DisplayFor(modelItem => item.Terreno.Mappale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Terreno.Foglio)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

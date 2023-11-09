@@ -1,0 +1,71 @@
+﻿@model IEnumerable<App_Progetto.Models.Piano>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrarioAttivazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrarioDisattivazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrarioAttDefault)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrarioDisattDefault)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CondAttivazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CondDisattivazione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attuatores)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrarioAttivazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrarioDisattivazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrarioAttDefault)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrarioDisattDefault)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CondAttivazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CondDisattivazione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attuatores.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodicePiano">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodicePiano">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodicePiano">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
