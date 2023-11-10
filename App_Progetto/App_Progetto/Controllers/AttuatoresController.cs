@@ -60,12 +60,7 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Attuatores
-        /*public async Task<IActionResult> Index(int? id)
-        {
-            var applicationDbContext = _context.Attuatores.Include(a => a.Terreno);
-            return View(await applicationDbContext.ToListAsync());
-        }*/
-
+        
         public async Task<IActionResult> Index()
         {
             // Ottenere l'ID dell'utente corrente
