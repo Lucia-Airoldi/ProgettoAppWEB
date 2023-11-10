@@ -13,6 +13,7 @@
             <th>IdSensore</th>
             <th>StatoSensore</th>
             <th>TipoSensore</th>
+            <th></th>
         </tr>
     </thead>
 
@@ -23,9 +24,18 @@
                 <td>@terr.TerrenoId</td>
                 <td>@terr.Mappale</td>
                 <td>@terr.Foglio</td>
-                <td>@terr.IdSensore</td>
+                <td>@terr.Id</td>
                 <td>@terr.StatoSensore</td>
                 <td>@terr.TipoSensore</td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@terr.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@terr.Id">Details</a> |
+                    @if (terr.Ruolo == "Agricoltore")
+                    {
+                        <a asp-action="Delete" asp-route-id="@terr.Id">|Delete </a>
+                    }
+                </td>
             </tr>
         }
     </tbody>

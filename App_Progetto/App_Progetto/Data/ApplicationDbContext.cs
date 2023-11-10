@@ -105,6 +105,9 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         {
             entity.HasKey(g => g.Id);
             entity.ToTable("Gestione");
+            entity.HasOne(g => g.Terreno)
+            .WithMany(t => t.Gestiones)
+            .HasForeignKey(g => g.TerrenoId);
         });
         #endregion
 

@@ -4,6 +4,10 @@
 }
 @if (User.IsInRole("Agricoltore"))
 {
+    <div class="row-table-create text-right">
+        <a class="btn action-button-create" asp-controller="Terrenoes" asp-action="Create" style="background-color: #4CAF50; margin-bottom: 10px;">Aggiungi terreno</a>
+    </div>
+
     <h2>Visualizza Miei Terreni (da Agricoltore)</h2>
 
     <table class="table table-striped mt-4">
@@ -32,7 +36,7 @@
                         <td>@terr.TipoColtura</td>
                         <td>@terr.TipoTerreno</td>
                         <td>
-                            <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="User"
+                            <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="Terrenoes"
                             asp-action= "VisualizzaTerreno" asp-route-TerrenoId="@terr.TerrenoId">Visualizza</a>
                         </td>
 
@@ -72,7 +76,7 @@
                         <td>@terr.TipoColtura</td>
                         <td>@terr.TipoTerreno</td>
                         <td>
-                            <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="User"
+                            <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="Terrenoes"
                             asp-action="VisualizzaTerreno" asp-route-TerrenoId="@terr.TerrenoId">Visualizza</a>
                         </td>
                     </tr>

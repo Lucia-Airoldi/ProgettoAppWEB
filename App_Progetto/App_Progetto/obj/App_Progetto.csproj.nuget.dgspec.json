@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lanci\\Documents\\Università\\3° anno\\Applicazioni web\\Progetto\\ProgettoAppWEB\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {}
+    "C:\\Users\\user\\Desktop\\APP_Web_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lanci\\Documents\\Università\\3° anno\\Applicazioni web\\Progetto\\ProgettoAppWEB\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {
+    "C:\\Users\\user\\Desktop\\APP_Web_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lanci\\Documents\\Università\\3° anno\\Applicazioni web\\Progetto\\ProgettoAppWEB\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\APP_Web_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
         "projectName": "App_Progetto",
-        "projectPath": "C:\\Users\\lanci\\Documents\\Università\\3° anno\\Applicazioni web\\Progetto\\ProgettoAppWEB\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
-        "packagesPath": "C:\\Users\\lanci\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lanci\\Documents\\Università\\3° anno\\Applicazioni web\\Progetto\\ProgettoAppWEB\\App_Progetto\\App_Progetto\\obj\\",
+        "projectPath": "C:\\Users\\user\\Desktop\\APP_Web_Progetto\\App_Progetto\\App_Progetto\\App_Progetto.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\APP_Web_Progetto\\App_Progetto\\App_Progetto\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lanci\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -102,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

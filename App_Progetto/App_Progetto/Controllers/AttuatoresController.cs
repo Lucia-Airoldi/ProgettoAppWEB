@@ -10,34 +10,45 @@ using App_Progetto.Models;
 using Humanizer;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.AspNetCore.Identity;
 
 namespace App_Progetto.Controllers
 {
     public class AttuatoresController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<UserController> _logger;
 
 
-        public AttuatoresController(ApplicationDbContext context, ILogger<UserController> logger)
+        public AttuatoresController(UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<UserController> logger)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> AttDettaglio(int TerrenoId)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var gestione = _context.Gestiones
+                .FirstOrDefault(g => g.TerrenoId == TerrenoId && g.UserId == currentUser.Id);
+
+            string ruolo = gestione?.Ruolo ?? "Nessun ruolo associato";
+            
             var query = from a in _context.Attuatores
                         join t in _context.Terrenos on a.TerrenoId equals t.Id
                         where a.TerrenoId == TerrenoId
                         select new
                         {
                             TerrenoId = a.TerrenoId,
-                            Foglio = t.Foglio,
                             Mappale = t.Mappale,
+                            Foglio = t.Foglio,
+                            Id = a.Id,
                             TipoAttuatore = a.TipoAttuatore,
                             Standby = a.Standby,
-                            Attivazione = a.Attivazione
+                            Attivazione = a.Attivazione,
+                            Ruolo = ruolo
                         };
 
             var result = await query.ToListAsync();
@@ -59,7 +70,6 @@ namespace App_Progetto.Controllers
         {
             // Ottenere l'ID dell'utente corrente
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
 
 
             var attuatoriUtente = _context.Attuatores

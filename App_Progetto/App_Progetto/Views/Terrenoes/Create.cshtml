@@ -1,0 +1,61 @@
+﻿@model App_Progetto.Models.Terreno
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Terreno</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+         <form method="post" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Mappale" class="control-label"></label>
+                <input asp-for="Mappale" class="form-control" />
+                <span asp-validation-for="Mappale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Foglio" class="control-label"></label>
+                <input asp-for="Foglio" class="form-control" />
+                <span asp-validation-for="Foglio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ettari" class="control-label"></label>
+                <input asp-for="Ettari" class="form-control" />
+                <span asp-validation-for="Ettari" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CittaTerreno" class="control-label"></label>
+                <input asp-for="CittaTerreno" class="form-control" />
+                <span asp-validation-for="CittaTerreno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoColtura" class="control-label"></label>
+                <input asp-for="TipoColtura" class="form-control" />
+                <span asp-validation-for="TipoColtura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="TipoTerreno" class="form-control">
+                    <option value="Serra">Serra</option>
+                    <option value="Campo">Campo</option>
+                </select>
+            <div class="form-group">
+                <label asp-for="TipoColtura" class="control-label"></label>
+            </div>
+                <span asp-validation-for="TipoTerreno" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

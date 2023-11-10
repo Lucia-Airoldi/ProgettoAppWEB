@@ -9,23 +9,33 @@ using App_Progetto.Data;
 using App_Progetto.Models;
 using Humanizer;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace App_Progetto.Controllers
 {
     public class SensoresController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<UserController> _logger;
 
-        public SensoresController(ApplicationDbContext context, ILogger<UserController> logger)
+        public SensoresController(UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<UserController> logger)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         //Creo il task per la visualizzazione dei sensori
         public async Task<IActionResult> SensoriDettaglio(int TerrenoId)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var gestione = _context.Gestiones
+                .FirstOrDefault(g => g.TerrenoId == TerrenoId && g.UserId == currentUser.Id);
+
+            string ruolo = gestione?.Ruolo ?? "Nessun ruolo associato";
+            Console.WriteLine("********* " + ruolo);
+
             var query = from a in _context.Sensores
                         join t in _context.Terrenos on a.TerrenoId equals t.Id
                         where a.TerrenoId == TerrenoId
@@ -34,15 +44,16 @@ namespace App_Progetto.Controllers
                             TerrenoId = a.TerrenoId,
                             Foglio = t.Foglio,
                             Mappale = t.Mappale,
-                            IdSensore = a.Id,
+                            Id = a.Id,
                             StatoSensore = a.StatoSensore,
-                            TipoSensore = a.TipoSensore
+                            TipoSensore = a.TipoSensore, 
+                            Ruolo = ruolo
                         };
 
             var result = await query.ToListAsync();
             foreach (var item in result)
             {
-                Console.WriteLine($"TerrenoId: {item.TerrenoId}, Foglio: {item.Foglio}, Mappale: {item.Mappale}, SensoreId: {item.IdSensore}, Stato Sensore: {item.StatoSensore}, Tipo Sensore: {item.TipoSensore}");
+                Console.WriteLine($"TerrenoId: {item.TerrenoId}, Foglio: {item.Foglio}, Mappale: {item.Mappale}, SensoreId: {item.Id}, Stato Sensore: {item.StatoSensore}, Tipo Sensore: {item.TipoSensore}");
             }
             return View(result);
         }
@@ -61,24 +72,14 @@ namespace App_Progetto.Controllers
             // Ottenere l'ID dell'utente corrente
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Trovare il ruolo dell'utente
-            var userRole = _context.Gestiones
-                .Where(g => g.UserId == userId)
-                .Select(g => g.Ruolo)
-                .FirstOrDefault();
 
-            // Ottenere i terreni associati all'utente
-            var terreniUtente = _context.Gestiones
-                .Where(g => g.UserId == userId)
-                .Select(g => g.TerrenoId)
+            // Ottenere i sensori associati ai terreni dell'utente
+            var sensoriUtente = _context.Sensores
+                 .Include(a => a.Terreno)  // Includi il riferimento al Terreno
+                .Where(a => _context.Gestiones.Any(g => g.UserId == userId && g.TerrenoId == a.TerrenoId))
                 .ToList();
 
-            // Ottenere gli attuatori associati ai terreni dell'utente
-            var attuatoriUtente = _context.Sensores
-                .Where(a => terreniUtente.Contains(a.TerrenoId))
-                .ToList();
-
-            return View(attuatoriUtente);
+            return View(sensoriUtente);
         }
 
 
@@ -102,9 +103,10 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Sensores/Create
-        public IActionResult Create()
+        public IActionResult Create(int TerrenoId)
         {
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id");
+            ViewBag.TerrenoId = TerrenoId;
+
             return View();
         }
 
@@ -117,7 +119,7 @@ namespace App_Progetto.Controllers
         {
             _context.Add(sensore);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("SensoriDettaglio", new { TerrenoId = sensore.TerrenoId });
         }
 
         // GET: Sensores/Edit/5

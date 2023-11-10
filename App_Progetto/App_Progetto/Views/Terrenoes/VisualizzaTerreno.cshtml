@@ -27,12 +27,12 @@
             <table class="table table-striped" id="tableTerr">
                 <tbody>
                     <tr>
-                        <th>Foglio</th>
-                        <td>@Model.Foglio</td>
-                    </tr>
-                    <tr>
                         <th>Mappale</th>
                         <td>@Model.Mappale</td>
+                    </tr>
+                    <tr>
+                        <th>Foglio</th>
+                        <td>@Model.Foglio</td>
                     </tr>
                     <tr>
                         <th>Ettari</th>
@@ -63,7 +63,10 @@
                 @if (Model.Ruolo == "Agricoltore")
                 {
                     <div class="row row-table">
-                        <button class="action-button" id="delete-button" style="background-color: #4CAF50; margin-bottom: 10px;">Elimina terreno</button>
+                        <a class="btn action-button" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" id="delete-button" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
+                    </div>
+                    <div class="row row-table">
+                        <button class="action-button" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;">Aggiungi Collaboratore</button>
                     </div>
                 }
                 <div class="row row-table">

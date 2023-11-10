@@ -89,4 +89,33 @@ public class UserController : Controller
 
         return View(viewModel);
     }
+
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Terrenoes/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,Mappale,Foglio,Ettari,CittaTerreno,TipoColtura,TipoTerreno")] Terreno terreno)
+    {
+        if (ModelState.IsValid)
+        {
+            _dbContext.Add(terreno);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(terreno);
+    }
+
+
+
+
+
+
+
 }

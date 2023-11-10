@@ -125,7 +125,7 @@ namespace App_Progetto.Areas.Identity.Pages.Account
                     {
               
                         // Se l'utente ha un returnUrl, reindirizza lì, altrimenti vai alla HomeTerreno
-                        return Redirect("~/User/HomeTerreno");
+                        return Redirect("~/Terrenoes/HomeTerreno");
                     }
                     else
                     {

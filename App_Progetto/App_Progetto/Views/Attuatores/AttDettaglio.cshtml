@@ -13,6 +13,7 @@
                 <th>TipoAttuatore</th>
                 <th>Standby</th>
                 <th>Attivazione</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -26,6 +27,15 @@
                 <td>@terr.TipoAttuatore</td>
                 <td>@terr.Standby</td>
                 <td>@terr.Attivazione</td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@terr.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@terr.Id">Details</a> |
+                    @if (terr.Ruolo == "Agricoltore")
+                    {
+                        <a asp-action="Delete" asp-route-id="@terr.Id">|Delete </a>
+                    }
+                </td>
             </tr>
             }
     </tbody>
