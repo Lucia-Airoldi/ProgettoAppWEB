@@ -1167,9 +1167,7 @@ C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\Progetto
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\staticwebassets.development.json
-C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\scopedcss\bundle\App_Progetto.styles.css
-C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\scopedcss\projectbundle\App_Progetto.bundle.scp.css
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.csproj.CopyComplete
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.dll
 C:\Users\lanci\Documents\Università\3° anno\Applicazioni web\Progetto\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\refint\App_Progetto.dll

@@ -79,27 +79,35 @@
                 @if (Model.Ruolo == "Agricoltore")
                 {
                     <div class="row row-table">
-                        <a class="btn action-button" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" id="delete-button" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
+                        <a class="btn action-button delete-button text-white" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
                     </div>
+
                     <div class="row row-table">
-                        <button class="action-button" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;" data-toggle="modal" data-target="#aggiungiCollaboratoreModal">Aggiungi Collaboratore</button>
+                        <a class="btn action-button text-white" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;" data-toggle="modal" data-target="#aggiungiCollaboratoreModal">Aggiungi Collaboratore</a>
+                    </div>
+
+                    <div class="row row-table">
+                        <a class="btn action-button delete-button text-white" id="ElimCollab-button" style="background-color: #DC143C; margin-bottom: 10px;" data-toggle="modal" data-target="#eliminaCollaboratoreModal">Elimina Collaboratore</a>
                     </div>
                 }
                 <div class="row row-table">
-                    <a class="btn action-button" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi attuatore</a>
+                    <a class="btn action-button text-white" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi attuatore</a>
                 </div>
                 <div class="row row-table">
-                    <a class="btn action-button" asp-controller="Sensores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi sensore</a>
+                    <a class="btn action-button text-white" asp-controller="Sensores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi sensore</a>
                 </div>
             </div>
         </div>
+
+       
+
     </div>
 
     <div id="buttons-container">
         <!-- Bottoni Attuatori e Sensori -->
-        <a class="btn action-button" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Attuatori</a>
+        <a class="btn action-button text-white" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50;">Attuatori</a>
 
-        <a class="btn action-button" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Sensori</a>
+        <a class="btn action-button text-white" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50;">Sensori</a>
     </div>
 </div>
 
@@ -123,6 +131,31 @@
                     </div>
                     <br />
                     <button type="submit" class="btn btn-primary">Aggiungi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eliminaCollaboratoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Elimina Collaboratore</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form per inserire il nome utente del collaboratore da eliminare -->
+                <form asp-action="EliminaCollaboratore" asp-controller="Terrenoes" method="post">
+                    <input type="hidden" name="terrenoId" value="@Model.TerrenoId" />
+                    <div class="form-group">
+                        <label for="usernameToDelete">Nome Utente Collaboratore da Eliminare:</label>
+                        <input type="text" class="form-control" id="usernameToDelete" name="usernameToDelete" required>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-danger">Elimina</button>
                 </form>
             </div>
         </div>

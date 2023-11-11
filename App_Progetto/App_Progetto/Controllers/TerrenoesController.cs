@@ -169,6 +169,45 @@ namespace App_Progetto.Controllers
         }
 
 
+        // POST: per eliminare dalla Tabella Gestione una tupla relativa a un collaboratore
+        [HttpPost]
+        public async Task<IActionResult> EliminaCollaboratore(int terrenoId, string usernameToDelete)
+        {
+            Console.WriteLine("****Codice del Terreno ***** " + terrenoId);
+
+            // Esempio di verifica (considera di implementare una logica più robusta):
+            var userToDelete = await _userManager.FindByNameAsync(usernameToDelete);
+
+            if (userToDelete != null)
+            {
+                // Cerca la tupla corrispondente nella tabella Gestione
+                var datiGestioneToDelete = await _dbContext.Gestiones
+                    .FirstOrDefaultAsync(g => g.TerrenoId == terrenoId && g.UserId == userToDelete.Id && g.Ruolo == "Collaboratore");
+
+                if (datiGestioneToDelete != null)
+                {
+                    // Elimina la tupla dalla tabella Gestione
+                    _dbContext.Gestiones.Remove(datiGestioneToDelete);
+                    await _dbContext.SaveChangesAsync();
+                    TempData["Messaggio"] = "Collaboratore eliminato con successo!";
+                    TempData["MessaggioTipo"] = "success";
+                }
+                else
+                {
+                    TempData["Messaggio"] = "Collaboratore non trovato per il terreno specificato.";
+                    TempData["MessaggioTipo"] = "danger";
+                }
+            }
+            else
+            {
+                TempData["Messaggio"] = "Username del collaboratore da eliminare non trovato.";
+                TempData["MessaggioTipo"] = "danger";
+            }
+
+            // Redirect alla vista originale
+            return RedirectToAction("VisualizzaTerreno", new { TerrenoId = terrenoId });
+        }
+
 
         //_________________________________________________________________
 

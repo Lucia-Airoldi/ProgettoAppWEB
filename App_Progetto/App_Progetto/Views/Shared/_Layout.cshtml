@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - App_Progetto</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/mioStyle.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/App_Progetto.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/stile.css" />
 
 </head>
 <body>
@@ -32,9 +30,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Terrenoes" asp-action="HomeTerreno">Home</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                 
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
