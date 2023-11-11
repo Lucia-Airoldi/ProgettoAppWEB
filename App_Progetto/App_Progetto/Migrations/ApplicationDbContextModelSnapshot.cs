@@ -69,11 +69,15 @@ namespace App_Progetto.Migrations
 
             modelBuilder.Entity("App_Progetto.Models.Misurazione", b =>
                 {
-                    b.Property<DateTime>("DataOra")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CodiceSensore")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataOra")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TipoMisurazione")
                         .IsRequired()
@@ -82,7 +86,7 @@ namespace App_Progetto.Migrations
                     b.Property<float>("Valore")
                         .HasColumnType("REAL");
 
-                    b.HasKey("DataOra", "CodiceSensore");
+                    b.HasKey("Id");
 
                     b.HasIndex("CodiceSensore");
 

@@ -41,7 +41,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         // Configura la chiave primaria per la classe Misurazione
         modelBuilder.Entity<Misurazione>(entity =>
         {
-            entity.HasKey(m => new { m.DataOra, m.CodiceSensore });
+            entity.HasKey(m => m.Id);
             entity.ToTable("Misurazione");
             /*entity.HasOne(m => m.Sensores)
             .WithOne(s => s.Misuraziones)
