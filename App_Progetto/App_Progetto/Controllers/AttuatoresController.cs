@@ -69,7 +69,8 @@ namespace App_Progetto.Controllers
 
             var attuatoriUtente = _context.Attuatores
                 .Include(a => a.Terreno)  // Includi il riferimento al Terreno
-                .Where(a => _context.Gestiones.Any(g => g.UserId == userId && g.TerrenoId == a.TerrenoId))
+                .ThenInclude(t => t.Gestiones)  // Assicurati di includere le Gestiones
+                .Where(a => a.Terreno.Gestiones.Any(g => g.UserId == userId))
                 .ToList();
 
             return View(attuatoriUtente);
@@ -98,7 +99,11 @@ namespace App_Progetto.Controllers
         public IActionResult Create(int TerrenoId)
         {
             // Imposta il TerrenoId nella ViewBag (o ovunque tu preferisca passare dati alla vista)
+            var terreno = _context.Terrenos.Find(TerrenoId);
+
             ViewBag.TerrenoId = TerrenoId;
+            ViewData["Mappale"] = terreno?.Mappale;
+            ViewData["Foglio"] = terreno?.Foglio;
 
             return View();
         }
@@ -127,7 +132,14 @@ namespace App_Progetto.Controllers
             {
                 return NotFound();
             }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", attuatore.TerrenoId);
+
+            var terreno = await _context.Terrenos.FindAsync(attuatore.TerrenoId);
+
+            // Passa TerrenoId e i dati del Terreno alla vista
+            ViewData["TerrenoId"] = attuatore.TerrenoId;
+            ViewData["Mappale"] = terreno?.Mappale;
+            ViewData["Foglio"] = terreno?.Foglio; 
+            
             return View(attuatore);
         }
 

@@ -72,11 +72,10 @@ namespace App_Progetto.Controllers
             // Ottenere l'ID dell'utente corrente
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-
-            // Ottenere i sensori associati ai terreni dell'utente
             var sensoriUtente = _context.Sensores
-                 .Include(a => a.Terreno)  // Includi il riferimento al Terreno
-                .Where(a => _context.Gestiones.Any(g => g.UserId == userId && g.TerrenoId == a.TerrenoId))
+                .Include(a => a.Terreno)  // Includi il riferimento al Terreno
+                .ThenInclude(t => t.Gestiones)  // Assicurati di includere le Gestiones
+                .Where(a => a.Terreno.Gestiones.Any(g => g.UserId == userId))
                 .ToList();
 
             return View(sensoriUtente);
@@ -105,7 +104,11 @@ namespace App_Progetto.Controllers
         // GET: Sensores/Create
         public IActionResult Create(int TerrenoId)
         {
+            var terreno = _context.Terrenos.Find(TerrenoId);
+            
             ViewBag.TerrenoId = TerrenoId;
+            ViewData["Mappale"] = terreno?.Mappale;
+            ViewData["Foglio"] = terreno?.Foglio;
 
             return View();
         }
@@ -135,7 +138,14 @@ namespace App_Progetto.Controllers
             {
                 return NotFound();
             }
-            ViewData["TerrenoId"] = new SelectList(_context.Terrenos, "Id", "Id", sensore.TerrenoId);
+
+            var terreno = await _context.Terrenos.FindAsync(sensore.TerrenoId);
+
+            // Passa TerrenoId e i dati del Terreno alla vista
+            ViewData["TerrenoId"] = sensore.TerrenoId;
+            ViewData["Mappale"] = terreno?.Mappale;
+            ViewData["Foglio"] = terreno?.Foglio;
+
             return View(sensore);
         }
 

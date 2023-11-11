@@ -25,9 +25,16 @@
                 <td>@terr.Mappale</td>
                 <td>@terr.Foglio</td>
                 <td>@terr.Id</td>
-                <td>@terr.StatoSensore</td>
-                <td>@terr.TipoSensore</td>
-
+                <td>
+                    @if (terr.StatoSensore)
+                    {
+                        <input checked="checked" class="check-box" disabled="disabled" type="checkbox">
+                    }
+                    else
+                    {
+                        <input class="check-box" disabled="disabled" type="checkbox">
+                    }
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@terr.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@terr.Id">Details</a> |

@@ -21,6 +21,22 @@
 
 <h1>Pagina del Terreno</h1>
 
+@if (TempData.ContainsKey("Messaggio") && TempData.ContainsKey("MessaggioTipo"))
+{
+    var messaggio = TempData["Messaggio"] as string;
+    var messaggioTipo = TempData["MessaggioTipo"] as string;
+
+    <div class="alert alert-@messaggioTipo" role="alert">
+        @messaggio
+    </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('messaggioAlert').style.display = 'none';
+        }, 6000);
+    </script>
+}
+
 <div id="main-container">
     <div class="row row-table" id="content-container">
         <div class="col" id="info-container">
@@ -66,7 +82,7 @@
                         <a class="btn action-button" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" id="delete-button" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
                     </div>
                     <div class="row row-table">
-                        <button class="action-button" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;">Aggiungi Collaboratore</button>
+                        <button class="action-button" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;" data-toggle="modal" data-target="#aggiungiCollaboratoreModal">Aggiungi Collaboratore</button>
                     </div>
                 }
                 <div class="row row-table">
@@ -84,5 +100,31 @@
         <a class="btn action-button" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Attuatori</a>
 
         <a class="btn action-button" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId">Sensori</a>
+    </div>
+</div>
+
+<!-- Aggiungi questo dove vuoi mostrare il Modal -->
+<div class="modal fade" id="aggiungiCollaboratoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi Collaboratore</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form per inserire il nome utente del collaboratore -->
+                <form asp-action="AggiungiCollaboratore" asp-controller="Terrenoes" method="post">
+                    <input type="hidden" name="terrenoId" value="@Model.TerrenoId" />
+                    <div class="form-group">
+                        <label for="username">Nome Utente Collaboratore:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Aggiungi</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

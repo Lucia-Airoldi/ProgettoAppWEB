@@ -137,10 +137,44 @@ namespace App_Progetto.Controllers
                
         }
 
+        //POST: per aggiungere nella Tabella Gestione, una nuova tupla,  
+        public async Task<IActionResult> AggiungiCollaboratore(int terrenoId, string username)
+        {
+            Console.WriteLine("****Codice del Terreno ***** " + terrenoId);
+
+            // Esempio di verifica (considera di implementare una logica più robusta):
+            var user = _userManager.FindByNameAsync(username).Result;
+            if (user != null)
+            {
+                var datiGestione = new Gestione
+                {
+                    UserId = user.Id,
+                    Ruolo = "Collaboratore",
+                    TerrenoId = terrenoId
+                };
+
+                _dbContext.Add(datiGestione);
+                await _dbContext.SaveChangesAsync();
+                TempData["Messaggio"] = "Collaboratore aggiunto con successo!";
+                TempData["MessaggioTipo"] = "success";
+            }
+            else
+            {
+                TempData["Messaggio"] = "Username non trovato.";
+                TempData["MessaggioTipo"] = "danger";
+            }
+
+            // Redirect alla vista originale
+            return RedirectToAction("VisualizzaTerreno", new { TerrenoId = terrenoId });
+        }
 
 
-            // GET: Terrenoes/Edit/5
-            public async Task<IActionResult> Edit(int? id)
+
+        //_________________________________________________________________
+
+
+        // GET: Terrenoes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _dbContext.Terrenos == null)
             {

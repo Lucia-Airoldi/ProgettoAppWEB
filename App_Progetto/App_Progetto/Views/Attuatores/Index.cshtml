@@ -6,6 +6,7 @@
     ViewData["Title"] = "Index";
 }
 
+
 <table class="table">
     <thead>
         <tr>
@@ -52,13 +53,13 @@
                 @Html.DisplayFor(modelItem => item.Terreno.Foglio)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
-                    <a asp-action="Details" asp-route-id="@item.Id"> Details </a>
-
-                @if (item.Terreno.Gestiones != null && item.Terreno.Gestiones.Any(g => g.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value && g.Ruolo == "Agricoltore"))
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id"> Details</a> |
+                    @if (item.Terreno.Gestiones.Any(g => g.UserId == User.FindFirst(ClaimTypes.NameIdentifier)?.Value && g.Ruolo == "Agricoltore"))
                     {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
                     }
+                    
             </td>
         </tr>
 }
