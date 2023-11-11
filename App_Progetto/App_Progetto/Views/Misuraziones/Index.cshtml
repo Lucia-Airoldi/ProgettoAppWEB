@@ -1,0 +1,46 @@
+﻿@model IEnumerable<App_Progetto.Models.Misurazione>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (Model.Any())
+{
+    <h1>Misurazioni del Sensore: @Model.First().Sensores.Id</h1>
+    
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataOra)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valore)
+                </th>
+               <!---<th>
+                    @Html.DisplayNameFor(model => model.TipoMisurazione)
+                </th> -->
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valore) - @Html.DisplayFor(modelItem => item.TipoMisurazione)
+                </td>
+                <td>
+                
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+}

@@ -18,10 +18,10 @@ namespace App_Progetto.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<Controller> _logger;
 
 
-        public AttuatoresController(UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<UserController> logger)
+        public AttuatoresController(UserManager<IdentityUser> userManager, ApplicationDbContext context, ILogger<Controller> logger)
         {
             _context = context;
             _logger = logger;

@@ -17,11 +17,11 @@ namespace App_Progetto.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _dbContext;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<Controller> _logger;
 
 
         public TerrenoesController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext dbContext,
-        ILogger<UserController> logger)
+        ILogger<Controller> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;

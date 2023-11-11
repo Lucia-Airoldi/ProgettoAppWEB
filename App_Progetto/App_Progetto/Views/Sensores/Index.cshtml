@@ -25,6 +25,7 @@
                 @Html.DisplayNameFor(model => model.Terreno.Foglio)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +53,10 @@
                 {
                     <a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
                 }
+            </td>
+            <td>
+                <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="Misuraziones"
+                asp-action="Index" asp-route-CodSensore="@item.Id">Misurazioni</a>
             </td>
         </tr>
 }

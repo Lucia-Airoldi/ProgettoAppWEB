@@ -1,0 +1,44 @@
+﻿@model App_Progetto.Models.Misurazione
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Misurazione</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DataOra" class="control-label"></label>
+                <input asp-for="DataOra" class="form-control" />
+                <span asp-validation-for="DataOra" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodiceSensore" class="control-label"></label>
+                <select asp-for="CodiceSensore" class ="form-control" asp-items="ViewBag.CodiceSensore"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valore" class="control-label"></label>
+                <input asp-for="Valore" class="form-control" />
+                <span asp-validation-for="Valore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoMisurazione" class="control-label"></label>
+                <input asp-for="TipoMisurazione" class="form-control" />
+                <span asp-validation-for="TipoMisurazione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
