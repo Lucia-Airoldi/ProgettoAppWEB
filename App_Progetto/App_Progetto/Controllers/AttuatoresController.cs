@@ -116,7 +116,8 @@ namespace App_Progetto.Controllers
             _context.Add(attuatore);
             await _context.SaveChangesAsync();
             /*return RedirectToAction(nameof(Index));*/
-            return RedirectToAction("AttDettaglio", new { TerrenoId = attuatore.TerrenoId });
+            //return RedirectToAction("AttDettaglio", new { TerrenoId = attuatore.TerrenoId });
+            return RedirectToAction("Create", "Pianoes", new { TerrenoId = attuatore.TerrenoId });
         }
 
         // GET: Attuatores/Edit/5

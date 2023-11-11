@@ -4,7 +4,7 @@ namespace App_Progetto.Models
 {
     public class Piano
     {
-        [Key]
+        [Key]   
         public int CodicePiano { get; set; }
 
         required public TimeOnly OrarioAttivazione { get; set; }
@@ -18,7 +18,7 @@ namespace App_Progetto.Models
 
         required public string CondDisattivazione { get; set; }
 
-        required public int CodAtt { get; set; }
+        public int CodAtt { get; set; }
 
         required public Attuatore Attuatores { get; set; }
     }

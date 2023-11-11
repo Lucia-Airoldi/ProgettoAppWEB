@@ -27,28 +27,24 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Pianoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? CodAttuatore)
         {
-            if (id == null || _context.Pianos == null)
+            if (CodAttuatore == null)
             {
-                return NotFound();
+                return BadRequest(); // o un altro codice di stato appropriato
             }
-
             var piano = await _context.Pianos
                 .Include(p => p.Attuatores)
-                .FirstOrDefaultAsync(m => m.CodicePiano == id);
-            if (piano == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(p => p.CodAtt == CodAttuatore);
 
             return View(piano);
         }
 
         // GET: Pianoes/Create
-        public IActionResult Create()
+        public IActionResult Create(int terrenoId)
         {
             ViewData["CodAtt"] = new SelectList(_context.Attuatores, "Id", "Id");
+            
             return View();
         }
 
@@ -93,33 +89,11 @@ namespace App_Progetto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CodicePiano,OrarioAttivazione,OrarioDisattivazione,OrarioAttDefault,OrarioDisattDefault,CondAttivazione,CondDisattivazione,CodAtt")] Piano piano)
         {
-            if (id != piano.CodicePiano)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(piano);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PianoExists(piano.CodicePiano))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CodAtt"] = new SelectList(_context.Attuatores, "Id", "Id", piano.CodAtt);
-            return View(piano);
+            _context.Update(piano);
+            await _context.SaveChangesAsync();
+            
+            return View("piano","Details");
+           
         }
 
         // GET: Pianoes/Delete/5

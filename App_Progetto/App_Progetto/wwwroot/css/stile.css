@@ -69,10 +69,14 @@ body {
     }
 
 .content-container {
-    background-color: rgb(255 255 255 / 47%);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 10px;
     border-radius: 30px;
     text-align: center;
+}
+
+body p {
+    color: black;
 }
 
 .title {
@@ -84,7 +88,7 @@ body {
     color: #002b6b;
     padding: 10px; /* Add padding for spacing */
     border-radius: 4px; /* Rounded corners */
-    color: #fff; /*Text color */
+    color: #fff;
 }
 
 ul.navbar-nav {

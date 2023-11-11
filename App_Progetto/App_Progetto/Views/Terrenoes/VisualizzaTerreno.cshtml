@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "VisualizzaTerreno";
 }
+
 <style>
     .tableTerr {
       border-collapse: collapse;
@@ -17,7 +18,7 @@
     th {
       background-color: #f2f2f2;
     }
-  </style>
+</style>
 
 <h1>Pagina del Terreno</h1>
 
@@ -79,35 +80,34 @@
                 @if (Model.Ruolo == "Agricoltore")
                 {
                     <div class="row row-table">
-                        <a class="btn action-button delete-button text-white" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
+                        <a class="btn btn-lg action-button delete-button text-white" asp-controller="Terrenoes" asp-action="Delete" asp-route-id="@Model.TerrenoId" style="background-color: #DC143C; margin-bottom: 10px;">Elimina Terreno</a>
                     </div>
 
                     <div class="row row-table">
-                        <a class="btn action-button text-white" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;" data-toggle="modal" data-target="#aggiungiCollaboratoreModal">Aggiungi Collaboratore</a>
+                        <a class="btn btn-lg action-button text-white" id="AggCollab-button" style="background-color: #4CAF50; margin-bottom: 10px;" data-toggle="modal" data-target="#aggiungiCollaboratoreModal">Aggiungi Collaboratore</a>
                     </div>
 
                     <div class="row row-table">
-                        <a class="btn action-button delete-button text-white" id="ElimCollab-button" style="background-color: #DC143C; margin-bottom: 10px;" data-toggle="modal" data-target="#eliminaCollaboratoreModal">Elimina Collaboratore</a>
+                        <a class="btn btn-lg action-button delete-button text-white" id="ElimCollab-button" style="background-color: #DC143C; margin-bottom: 10px;" data-toggle="modal" data-target="#eliminaCollaboratoreModal">Elimina Collaboratore</a>
                     </div>
                 }
                 <div class="row row-table">
-                    <a class="btn action-button text-white" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi attuatore</a>
+                    <a class="btn btn-lg action-button text-white" asp-controller="Attuatores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange; margin-bottom: 10px;">Aggiungi attuatore</a>
                 </div>
                 <div class="row row-table">
-                    <a class="btn action-button text-white" asp-controller="Sensores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange;">Aggiungi sensore</a>
+                    <a class="btn btn-lg action-button text-white" asp-controller="Sensores" asp-action="Create" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: orange; margin-bottom: 10px;">Aggiungi sensore</a>
                 </div>
             </div>
         </div>
 
-       
+        <div id="buttons-container" class="d-flex justify-content-center align-items-center">
+            <!-- Bottoni Attuatori e Sensori -->
+            <a class="btn btn-lg action-button text-white mb-3" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50; margin-right: 10px;">Attuatori</a>
 
-    </div>
+            <a class="btn btn-lg action-button text-white mb-3" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50; margin-left: 10px;">Sensori</a>
+        </div>
 
-    <div id="buttons-container">
-        <!-- Bottoni Attuatori e Sensori -->
-        <a class="btn action-button text-white" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50;">Attuatori</a>
 
-        <a class="btn action-button text-white" asp-controller="Sensores" asp-action="SensoriDettaglio" asp-route-TerrenoId="@Model.TerrenoId" style="background-color: #4CAF50;">Sensori</a>
     </div>
 </div>
 
