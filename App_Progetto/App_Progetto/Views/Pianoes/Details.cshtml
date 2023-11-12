@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Dettagli piano attuatore</h1>
 
 <div>
     <h4>Piano</h4>
@@ -55,6 +55,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.CodicePiano">Edit</a> |
+    <a class="btn action-button text-white" asp-controller="Attuatores" asp-action="AttDettaglio" asp-route-TerrenoId="@ViewData["CodTerr"]" style="background-color: dodgerblue">Ritorna indietro</a>
+    <a asp-action="Edit" asp-route-id="@Model?.CodicePiano">Edit</a>
 </div>
 

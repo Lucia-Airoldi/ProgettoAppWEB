@@ -37,14 +37,26 @@ namespace App_Progetto.Controllers
                 .Include(p => p.Attuatores)
                 .FirstOrDefaultAsync(p => p.CodAtt == CodAttuatore);
 
+            if(piano == null)
+            {
+                return RedirectToAction("Create", "Pianoes", new { CodAtt = CodAttuatore});
+            }
+
+            var terrenoId = await _context.Attuatores
+                .Where(a => a.Id == piano.CodAtt)
+                .Select(a => a.TerrenoId)
+                .FirstOrDefaultAsync();
+
+            ViewData["CodTerr"] = terrenoId;
+
             return View(piano);
         }
 
         // GET: Pianoes/Create
-        public IActionResult Create(int terrenoId)
+        public IActionResult Create(int CodAtt)
         {
-            ViewData["CodAtt"] = new SelectList(_context.Attuatores, "Id", "Id");
-            
+            ViewData["CodAtt"] = CodAtt;
+
             return View();
         }
 
@@ -55,14 +67,10 @@ namespace App_Progetto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CodicePiano,OrarioAttivazione,OrarioDisattivazione,OrarioAttDefault,OrarioDisattDefault,CondAttivazione,CondDisattivazione,CodAtt")] Piano piano)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(piano);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CodAtt"] = new SelectList(_context.Attuatores, "Id", "Id", piano.CodAtt);
-            return View(piano);
+            _context.Add(piano);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Pianoes", new { CodAttuatore = piano.CodAtt });
+
         }
 
         // GET: Pianoes/Edit/5
@@ -78,7 +86,9 @@ namespace App_Progetto.Controllers
             {
                 return NotFound();
             }
-            ViewData["CodAtt"] = new SelectList(_context.Attuatores, "Id", "Id", piano.CodAtt);
+            
+            ViewData["CodAtt"] = piano.CodAtt;
+
             return View(piano);
         }
 
@@ -89,11 +99,12 @@ namespace App_Progetto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CodicePiano,OrarioAttivazione,OrarioDisattivazione,OrarioAttDefault,OrarioDisattDefault,CondAttivazione,CondDisattivazione,CodAtt")] Piano piano)
         {
+            Console.WriteLine("Ciao: " + piano.CodAtt);
             _context.Update(piano);
             await _context.SaveChangesAsync();
-            
-            return View("piano","Details");
-           
+
+            return RedirectToAction("Details", "Pianoes", new { CodAttuatore = piano.CodAtt });
+
         }
 
         // GET: Pianoes/Delete/5

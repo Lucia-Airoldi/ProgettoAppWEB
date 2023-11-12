@@ -11,6 +11,7 @@ using Humanizer;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
@@ -28,6 +29,7 @@ namespace App_Progetto.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "Agricoltore,Collaboratore")]
         public async Task<IActionResult> AttDettaglio(int TerrenoId)
         {
             var currentUser = await _userManager.GetUserAsync(User);

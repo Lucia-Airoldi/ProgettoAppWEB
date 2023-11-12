@@ -19,6 +19,7 @@
                 <th>Standby</th>
                 <th>Attivazione</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -56,6 +57,10 @@
                     {
                         <a asp-action="Delete" asp-route-id="@terr.Id">|Delete </a>
                     }
+                </td>
+                <td>
+                    <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="Pianoes"
+                       asp-action="Details" asp-route-CodAttuatore="@terr.Id">Piano</a>
                 </td>
             </tr>
             }
