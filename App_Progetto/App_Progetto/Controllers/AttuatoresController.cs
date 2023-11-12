@@ -50,7 +50,7 @@ namespace App_Progetto.Controllers
                             Attivazione = a.Attivazione,
                             Ruolo = ruolo
                         };
-
+            ViewData["IdTerreno"] = TerrenoId;
             var result = await query.ToListAsync();
             foreach (var item in result)
             {

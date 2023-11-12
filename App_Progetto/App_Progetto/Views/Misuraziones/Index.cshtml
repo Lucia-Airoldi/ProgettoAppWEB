@@ -3,14 +3,15 @@
 @{
     ViewData["Title"] = "Index";
 }
-@if (Model.Any())
-{
-    <h1>Misurazioni del Sensore: @Model.First().Sensores.Id</h1>
+
+<h1>Misurazioni del Sensore: @ViewData["codSensore"]</h1>
     
     <p>
-        <a asp-action="Create">Create New</a>
+        <a class="btn btn-outline-success" style="background-color: #9FE2BF; color: #000;" asp-controller="Misuraziones"
+        asp-action="Create" asp-route-CodSensore=@ViewData["codSensore"]>Aggiungi Misurazione</a>
     </p>
-    <table class="table">
+@if (Model.Any())
+{    <table class="table">
         <thead>
             <tr>
                 <th>
@@ -35,12 +36,14 @@
                     @Html.DisplayFor(modelItem => item.Valore) - @Html.DisplayFor(modelItem => item.TipoMisurazione)
                 </td>
                 <td>
-                
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"> Delete</a>
                 </td>
             </tr>
     }
         </tbody>
     </table>
 }
+<div>
+    <a class="btn action-button text-white" asp-controller="Sensores" asp-action="Index" style="background-color: dodgerblue">Ritorna indietro</a>
+</div>

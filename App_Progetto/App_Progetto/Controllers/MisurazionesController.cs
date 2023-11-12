@@ -26,12 +26,13 @@ namespace App_Progetto.Controllers
                 .Include(m => m.Sensores)
                 .Where(m => m.Sensores.Id == CodSensore)
                 .ToList();
+            ViewData["codSensore"] = CodSensore;
 
             return View(misurazioniSensore);
         }
 
         // GET: Misuraziones/Details/5
-        public async Task<IActionResult> Details(DateTime? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Misuraziones == null)
             {
@@ -40,7 +41,7 @@ namespace App_Progetto.Controllers
 
             var misurazione = await _context.Misuraziones
                 .Include(m => m.Sensores)
-                .FirstOrDefaultAsync(m => m.DataOra == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (misurazione == null)
             {
                 return NotFound();
@@ -50,9 +51,20 @@ namespace App_Progetto.Controllers
         }
 
         // GET: Misuraziones/Create
-        public IActionResult Create()
+        public IActionResult Create(int CodSensore)
         {
-            ViewData["CodiceSensore"] = new SelectList(_context.Sensores, "Id", "Id");
+            var tipoSensore = _context.Sensores
+            .Where(s => s.Id == CodSensore)
+            .Select(s => s.TipoSensore)
+            .FirstOrDefault();
+
+            //Console.WriteLine($"TipoSensore: {tipoSensore}");
+            Console.WriteLine($"CodiceSensore nel metodo Create: {CodSensore}");
+
+            ViewBag.CodiceSensore = CodSensore;
+            ViewData["CodSensore"] = CodSensore;
+            ViewData["TipoSensore"] = tipoSensore; 
+
             return View();
         }
 
@@ -63,15 +75,67 @@ namespace App_Progetto.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DataOra,CodiceSensore,Valore,TipoMisurazione")] Misurazione misurazione)
         {
-            if (ModelState.IsValid)
-            {
+            Console.WriteLine("DataOra: " + misurazione.DataOra);
+            Console.WriteLine("CodiceSensore: " + misurazione.CodiceSensore);
+            Console.WriteLine("Valore: " + misurazione.Valore);
+            Console.WriteLine("TipoMisurazione: " + misurazione.TipoMisurazione);
+ 
+                ViewData["CodiceSensore"] = new SelectList(_context.Sensores, "Id", "Id", misurazione.CodiceSensore);
+                Console.WriteLine("**********-->");
                 _context.Add(misurazione);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                
+
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    Console.WriteLine($"Error: {error.ErrorMessage}");
+                }
             }
-            ViewData["CodiceSensore"] = new SelectList(_context.Sensores, "Id", "Id", misurazione.CodiceSensore);
+            return RedirectToAction("Index", new { CodSensore = misurazione.CodiceSensore });
+            //return View(misurazione);
+        }
+
+        // GET: Misuraziones/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Misuraziones == null)
+            {
+                return NotFound();
+            }
+
+            var misurazione = await _context.Misuraziones
+                .Include(m => m.Sensores)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (misurazione == null)
+            {
+                return NotFound();
+            }
+
             return View(misurazione);
         }
+
+        // POST: Misuraziones/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if (_context.Misuraziones == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Misuraziones'  is null.");
+            }
+            var misurazione = await _context.Misuraziones.FindAsync(id);
+            if (misurazione != null)
+            {
+                _context.Misuraziones.Remove(misurazione);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", new { CodSensore = misurazione.CodiceSensore });
+        }
+
 
         // GET: Misuraziones/Edit/5
         public async Task<IActionResult> Edit(DateTime? id)
@@ -124,44 +188,6 @@ namespace App_Progetto.Controllers
             }
             ViewData["CodiceSensore"] = new SelectList(_context.Sensores, "Id", "Id", misurazione.CodiceSensore);
             return View(misurazione);
-        }
-
-        // GET: Misuraziones/Delete/5
-        public async Task<IActionResult> Delete(DateTime? id)
-        {
-            if (id == null || _context.Misuraziones == null)
-            {
-                return NotFound();
-            }
-
-            var misurazione = await _context.Misuraziones
-                .Include(m => m.Sensores)
-                .FirstOrDefaultAsync(m => m.DataOra == id);
-            if (misurazione == null)
-            {
-                return NotFound();
-            }
-
-            return View(misurazione);
-        }
-
-        // POST: Misuraziones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(DateTime id)
-        {
-            if (_context.Misuraziones == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Misuraziones'  is null.");
-            }
-            var misurazione = await _context.Misuraziones.FindAsync(id);
-            if (misurazione != null)
-            {
-                _context.Misuraziones.Remove(misurazione);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool MisurazioneExists(DateTime id)

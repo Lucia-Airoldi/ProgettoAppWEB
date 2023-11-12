@@ -49,7 +49,7 @@ namespace App_Progetto.Controllers
                             TipoSensore = a.TipoSensore, 
                             Ruolo = ruolo
                         };
-
+            ViewData["IdTerreno"] = TerrenoId;
             var result = await query.ToListAsync();
             foreach (var item in result)
             {
