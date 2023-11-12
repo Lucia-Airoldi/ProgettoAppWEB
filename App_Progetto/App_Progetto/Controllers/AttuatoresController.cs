@@ -61,8 +61,9 @@ namespace App_Progetto.Controllers
             return View(result);
         }
 
+        [Authorize(Roles = "Agricoltore,Collaboratore")]
         // GET: Attuatores
-        
+
         public async Task<IActionResult> Index()
         {
             // Ottenere l'ID dell'utente corrente

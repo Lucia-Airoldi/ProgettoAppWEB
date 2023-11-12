@@ -10,6 +10,7 @@ using App_Progetto.Models;
 using Humanizer;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
@@ -66,7 +67,7 @@ namespace App_Progetto.Controllers
             var applicationDbContext = _context.Sensores.Include(s => s.Terreno);
             return View(await applicationDbContext.ToListAsync());
         }*/
-
+        [Authorize(Roles = "Agricoltore,Collaboratore")]
         public async Task<IActionResult> Index()
         {
             // Ottenere l'ID dell'utente corrente

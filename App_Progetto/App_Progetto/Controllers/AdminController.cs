@@ -23,7 +23,7 @@ public class AdminController : Controller
         _roleManager = roleManager;
     }
 
-    
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> ViewRole()
     {
         var currentUser = await _userManager.GetUserAsync(User);
