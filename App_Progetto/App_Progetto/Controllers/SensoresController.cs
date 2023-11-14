@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
+    [Authorize(Roles = "Agricoltore,Collaboratore")]
     public class SensoresController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

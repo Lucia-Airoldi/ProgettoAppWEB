@@ -1469,3 +1469,5 @@ C:\Users\user\Source\Repos\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\ne
 C:\Users\user\Source\Repos\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.csproj.CopyComplete
 C:\Users\user\Source\Repos\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\App_Progetto.genruntimeconfig.cache
 C:\Users\user\Source\Repos\ProgettoAppWEB\App_Progetto\App_Progetto\obj\Debug\net7.0\ref\App_Progetto.dll
+C:\Users\user\source\repos\ProgettoAppWEB\App_Progetto\App_Progetto\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\source\repos\ProgettoAppWEB\App_Progetto\App_Progetto\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll

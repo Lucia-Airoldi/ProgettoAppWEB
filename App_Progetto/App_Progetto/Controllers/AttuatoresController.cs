@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
+    [Authorize(Roles = "Agricoltore,Collaboratore")]
     public class AttuatoresController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -61,7 +62,7 @@ namespace App_Progetto.Controllers
             return View(result);
         }
 
-        [Authorize(Roles = "Agricoltore,Collaboratore")]
+        //[Authorize(Roles = "Agricoltore,Collaboratore")]
         // GET: Attuatores
 
         public async Task<IActionResult> Index()

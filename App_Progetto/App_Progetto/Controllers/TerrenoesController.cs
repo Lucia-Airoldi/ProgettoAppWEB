@@ -9,9 +9,11 @@ using App_Progetto.Data;
 using App_Progetto.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
+    [Authorize(Roles = "Agricoltore,Collaboratore")]
     public class TerrenoesController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

@@ -9,8 +9,7 @@ using System.Data;
 using System.Diagnostics.Metrics;
 
 namespace App_Progetto.Controllers;
-
-
+[Authorize(Roles = "Admin")]
 //[ApiController]
 public class AdminController : Controller
 {
@@ -29,6 +28,7 @@ public class AdminController : Controller
         var currentUser = await _userManager.GetUserAsync(User);
         var users = await _userManager.Users.ToListAsync();
 
+        var admin = await _userManager.FindByEmailAsync("admin@admin.com");
         /*
          * var usersWithRoles = _userManager.Users
             .Select(user => new
@@ -44,7 +44,7 @@ public class AdminController : Controller
         int idCounter = 1;
         foreach (var user in users) 
         {
-            if (user.Id != currentUser.Id)
+            if (user.Id != currentUser.Id && user.Id != admin.Id)
             {
                 result.Add(new UserRole()
                 {
@@ -107,5 +107,5 @@ public class AdminController : Controller
 
         return RedirectToAction(nameof(ViewRole));
     }
-
+    
 }

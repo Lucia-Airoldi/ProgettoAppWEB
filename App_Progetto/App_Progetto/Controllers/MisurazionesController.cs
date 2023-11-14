@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App_Progetto.Data;
 using App_Progetto.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App_Progetto.Controllers
 {
+    [Authorize(Roles = "Agricoltore,Collaboratore")]
     public class MisurazionesController : Controller
     {
         private readonly ApplicationDbContext _context;

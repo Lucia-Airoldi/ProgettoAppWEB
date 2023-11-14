@@ -1,4 +1,5 @@
-﻿using App_Progetto.Data;
+﻿using App_Progetto.Controllers;
+using App_Progetto.Data;
 using App_Progetto.DatiDb;
 using App_Progetto.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -7,11 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Data;
+using System.Text;
 using static System.Formats.Asn1.AsnWriter;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
 
 // Per Entity Framework
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -23,22 +30,34 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Per Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-//.AddDefaultUI()
-//.AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 
 //builder.Services.AddHttpContextAccessor();
 //builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
 
 // Per Authentication esterno
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    var configuration = builder.Configuration;
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
-    //googleOptions.CallbackPath = "/User/HomeTerreno"; // Questa è l'URL di callback
-});
+builder.Services.AddAuthentication()
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
+        googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
+        //googleOptions.CallbackPath = "/User/HomeTerreno"; // Questa è l'URL di callback
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuerSigningKey = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JwtSecretKey"]!))
+        };
+    });
 
 //builder.Services.AddHttpContextAccessor();
 //builder.Services.AddSession();
@@ -46,7 +65,35 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "AppProgetto API", Version = "v1" });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+});
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 var app = builder.Build();
 
@@ -55,6 +102,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.UseMigrationsEndPoint();
 }
 else
@@ -71,7 +120,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-//app.MapRazorPages();
 
 
 using (var scope = app.Services.CreateScope())
@@ -164,3 +212,12 @@ record User
 
     public string? Password { get; set; }
 }
+
+/*void MapViewRole()
+{
+    var group = app.MapGroup("/viewRole").WithTags("Admin");
+
+    group
+        .MapGet("/", (AdminController contrAdmin) => contrAdmin.GetAll())
+        .RequireAuthorization(PolicyName.IsAdmin);
+}*/
